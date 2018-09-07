@@ -1,0 +1,10 @@
+<volist name="fee" id="fee">
+<tr style="height:35px">
+<if condition="$fee['amount'] egt 0">
+	<td><font color="green">{$fee.amount}</font></td>
+<else/>
+	<td><font color="red">{$fee.amount}</font></td>
+</if>
+<td align="right">{$fee.content}</td>
+</tr>
+</volist>

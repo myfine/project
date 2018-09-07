@@ -1,0 +1,138 @@
+
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>泰兴_网站建设_网站推广_微信公众号_微信小程序__微信生态_泰兴市新新网络科技有限公司</title>
+<meta name="renderer" content="webkit">
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
+<!--  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet"> -->
+
+      <!-- 包括所有已编译的插件 -->
+ <script src="https://cdn.bootcss.com/jquery/2.1.1/jquery.min.js"></script>
+ <script src="http://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+ <script type="text/javascript" async="" src="https://material-ssl.mediav.com/bjjs/mba.js"></script>
+<meta name="description" content=">泰兴_网站建设_网站推广_微信公众号_微信小程序__微信生态_泰兴市新新网络科技有限公司" />
+<meta name="keywords" content=">泰兴_网站建设_网站推广_微信公众号_微信小程序__微信生态_泰兴市新新网络科技有限公司" />
+<!-- <link href="https://www.yeyang0512.cn/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+ -->
+<link rel='stylesheet' type='text/css' href="https://account.metinfo.cn/templates/account/cache/account.css">
+<link rel='stylesheet' type='text/css' href="http://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+<style>
+.invisible{visibility:visible;}
+.form-material .form-control ~ .floating-label{top:-15px;}
+</style>
+
+</head>
+
+<body class="page-login-v3 layout-full">
+<div class="page animsition vertical-align text-center" data-animsition-in="fade-in" data-animsition-out="fade-out" style="animation-duration: 800ms; opacity: 1;">
+    <div class="page-content vertical-align-middle">
+		<div class="panel">
+			<div class="panel-body">
+
+<div class="brand">
+	<img class="brand-img" src="__PUBLIC__/Home/image/logo.png" alt="MetInfo 用户中心" width="50">
+	<h2 class="brand-text font-size-20 margin-top-20">会员注册</h2>
+</div>
+
+
+					<div class="form-group form-material floating">
+						<input type="text" class="form-control empty" name="username" data-fv-notempty="true" data-fv-message="" data-fv-field="username" id="username">
+						<label class="floating-label">用户名</label>
+						<small class="help-block" data-fv-validator="notEmpty" data-fv-for="username" data-fv-result="NOT_VALIDATED" style="display: none;" id="userinfo"></small>
+
+
+
+					</div>
+
+					<div class="form-group form-material floating">
+						<input type="password" class="form-control empty" name="password" data-fv-notempty="true" data-fv-message="" data-fv-field="password" id="password">
+						<label class="floating-label">密码</label>
+
+						<small class="help-block" data-fv-validator="notEmpty" data-fv-for="username" data-fv-result="NOT_VALIDATED" style="display: none;" id="passwordinfo"></small>
+					</div>
+
+
+					<div class="form-group form-material floating">
+						<input type="password" class="form-control empty" name="repassword" data-fv-notempty="true" data-fv-message="" data-fv-field="password" id="repassword">
+						<label class="floating-label">确认密码</label>
+
+						<small class="help-block" data-fv-validator="notEmpty" data-fv-for="username" data-fv-result="NOT_VALIDATED" style="display: none;" id="repasswordinfo"></small>
+
+					</div>
+				<p style="display:none;color:red;" id="des"></p>
+					<button type="submit" class="btn btn-primary btn-block btn-lg margin-top-40" id="gozhuce">注册</button>
+
+				<ol class="breadcrumb margin-bottom-0 padding-0">
+					<li>已有账号? 去 <a href="/index.php/login/login">登录</a></li>
+					<!-- <li><a class="pull-right" href="https://account.metinfo.cn/login/findpass/">忘记密码?</a></li> -->
+				</ol>
+			</div>
+		</div>
+
+
+		<script>
+			$(function(){
+			     $('#gozhuce').click(function(){
+			           var username = $('#username').val();
+			           var password = $('#password').val();
+			           var repassword = $('#repassword').val();
+			           if(!username){
+						   $('#userinfo').html('请输入用户名');
+                           $('#userinfo').css('display','block');
+                           return false;
+					   }
+
+                     if(!password){
+                         $('#passwordinfo').html('请输入密码');
+                         $('#passwordinfo').css('display','block');
+                         return false;
+                     }
+
+                     if(!repassword){
+                         $('#repasswordinfo').html('请输入确认密码');
+                         $('#repasswordinfo').css('display','block');
+                         return false;
+                     }
+
+					 if(password != repassword){
+                         $('#repasswordinfo').html('密码与确认密码不相等');
+                         $('#repasswordinfo').css('display','block');
+                         return false;
+					 }
+
+
+			           var url = "/index.php/login/doRegist";
+			           $.post(url,{'username':username,'password':password},function(data){
+                           var list = JSON.parse(data);
+                           console.log(list);
+						    if(list['status'] == 1){
+								location.href="/";
+							}else{
+						        $('#des').html(list['info']);
+                                $('#des').css('display','block');
+							}
+					   })
+				 })
+			})
+		</script>
+
+
+
+<footer class="page-copyright page-copyright-inverse">
+	
+	<div class="powered_by_metinfo">
+			Powered&nbsp;by&nbsp;<a href="http://www.yeyang0512.com/" target="_blank" title="企业网站管理系统">新新网络</a>
+	</div>
+</footer>
+
+    </div>
+</div>
+
+
+
+</html>

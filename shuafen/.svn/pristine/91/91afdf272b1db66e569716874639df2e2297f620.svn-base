@@ -1,0 +1,81 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>管理中心</title>
+<meta name="Copyright" content="Douco Design." />
+<link href="__PUBLIC__/Admin/styles/public.css" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="__PUBLIC__/Admin/js/jquery-1.8.2.min.js"></script>
+<script type="text/javascript" src="__PUBLIC__/Admin/js/jquery.form.js"></script>
+<script type="text/javascript" src="__PUBLIC__/Admin/js/global.js"></script>
+<script type="text/javascript" src="__PUBLIC__/Admin/js/ajaxfileupload.js"></script>
+
+<link rel="stylesheet" href="__PUBLIC__/Admin/styles/jquery.datetimepicker.css">
+<link rel="stylesheet" href="__PUBLIC__/Admin/styles/jquery-ui.css">
+<script src="__PUBLIC__/Admin/js/jquery-ui.js"></script>
+<script src="__PUBLIC__/Admin/js/jquery.datetimepicker.js"></script>
+
+<!-- 百度编辑器  -->
+<script src="__ROOT__/Data/Ueditor/ueditor.config.js"></script>
+<script src="__ROOT__/Data/Ueditor/ueditor.all.js"></script>
+<script type="text/javascript">
+  	window.UEDITOR_CONFIG.initialFrameHeight = 400;
+  	window.UEDITOR_CONFIG.initialFrameWidth = 800;
+  	window.UEDITOR_CONFIG.savePath='upload1';
+  	window.UEDITOR_CONFIG.imageUrl = '__GROUP__/Works/upload/';
+  	window.UEDITOR_CONFIG.imagePath = '__ROOT__/Public/upload/';
+
+    
+</script>
+
+<style type="text/css">
+ul li{
+	list-style-type:none;
+}
+em{
+	padding-left:20px;margin-top:3px
+}
+</style>
+</head>
+<body>
+<div id="dcWrap"> <div id="dcHead">
+ <div id="head">
+  <!-- <div class="logo"><a href="index.html"><img src="__PUBLIC__/Admin/images/dclogo.gif" alt="logo"></a></div> -->
+  <div class="nav">
+   <ul>
+    <li id="kzmb"><a href="__MODULE__/Index/index">控制面板</a></li>
+   </ul>
+   <ul class="navRight">
+    <li class="M noLeft"><a href="JavaScript:void(0);">您好，<?php echo session('uname'); ?></a>
+    </li>
+    <li><a href="__URL__/alterPassword">修改密码</a></li>
+    <li class="noRight"><a href="__MODULE__/Login/logout">退出</a></li>
+   </ul>
+  </div>
+ </div>
+</div>
+
+<!-- dcHead 结束 -->
+
+<!-- menu -->
+ <div id="dcLeft" style="height:95%; overflow:hidden; position:absolute;overflow-y:auto;top:40px;"><div id="menu">
+ 
+ <ul>
+ 	<li id="ddlb"><a href="{:U('Index/orders')}"><em>订单列表</em></a></li>
+	<li id="yhlb"><a href="{:U('Index/users')}"><em>用户列表</em></a></li>
+  	<li id="splb"><a href="{:U('Index/products')}"><em>商品列表</em></a></li>
+  	<li id="jfsz"><a href="{:U('Index/add_sub_integral')}"><em>积分设置</em></a></li>
+  	<li id="gg"><a href="{:U('Index/notice')}"><em>公告</em></a></li>
+  	<li id="sclb"><a href="{:U('Index/firstRecharge')}"><em>首充礼包</em></a></li>
+  	<php>if($_SESSION['uid'] == 2){</php>
+	  	<li id="bbgx"><a href="{:U('Index/updateapp')}"><em>安装包上传</em></a></li>
+	  	<li id="wd"><a href="{:U('Index/word')}"><em>文档</em></a></li>
+  	<php>}</php>
+ </ul>
+
+
+ </div>
+ </div>
+  {__CONTENT__}
+</div>
+

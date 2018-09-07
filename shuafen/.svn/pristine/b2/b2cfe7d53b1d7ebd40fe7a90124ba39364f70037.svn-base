@@ -1,0 +1,222 @@
+<?php if (!defined('THINK_PATH')) exit();?><!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>管理中心</title>
+<meta name="Copyright" content="Douco Design." />
+<link href="/aixuewen/Public/Admin/styles/public.css" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="/aixuewen/Public/Admin/js/jquery-1.8.2.min.js"></script>
+<script type="text/javascript" src="/aixuewen/Public/Admin/js/jquery.form.js"></script>
+<script type="text/javascript" src="/aixuewen/Public/Admin/js/global.js"></script>
+<script type="text/javascript" src="/aixuewen/Public/Admin/js/ajaxfileupload.js"></script>
+
+<link rel="stylesheet" href="/aixuewen/Public/Admin/styles/jquery.datetimepicker.css">
+<link rel="stylesheet" href="/aixuewen/Public/Admin/styles/jquery-ui.css">
+<script src="/aixuewen/Public/Admin/js/jquery-ui.js"></script>
+<script src="/aixuewen/Public/Admin/js/jquery.datetimepicker.js"></script>
+
+<!-- 百度编辑器  -->
+<script src="/aixuewen/Data/Ueditor/ueditor.config.js"></script>
+<script src="/aixuewen/Data/Ueditor/ueditor.all.js"></script>
+<script type="text/javascript">
+  	window.UEDITOR_CONFIG.initialFrameHeight = 400;
+  	window.UEDITOR_CONFIG.initialFrameWidth = 800;
+  	window.UEDITOR_CONFIG.savePath='upload1';
+  	window.UEDITOR_CONFIG.imageUrl = '__GROUP__/Works/upload/';
+  	window.UEDITOR_CONFIG.imagePath = '/aixuewen/Public/upload/';
+
+    
+</script>
+
+<style type="text/css">
+em{
+	padding-left:20px;margin-top:3px
+}
+</style>
+</head>
+<body>
+<div id="dcWrap"> <div id="dcHead">
+ <div id="head">
+  <!-- <div class="logo"><a href="index.html"><img src="/aixuewen/Public/Admin/images/dclogo.gif" alt="logo"></a></div> -->
+  <div class="nav">
+   <ul>
+    <li id="kzmb"><a href="/aixuewen/index.php/Admin/Index/index">控制面板</a></li>
+   </ul>
+   <ul class="navRight">
+    <li class="M noLeft"><a href="JavaScript:void(0);">您好，<?php echo session('uname'); ?></a>
+     <div class="drop mUser">
+     </div>
+    </li>
+    <li class="noRight"><a href="/aixuewen/index.php/Admin/Login/logout">退出</a></li>
+   </ul>
+  </div>
+ </div>
+</div>
+
+<!-- dcHead 结束 -->
+
+<!-- menu -->
+ <div id="dcLeft" style="height:95%; overflow:hidden; position:absolute;overflow-y:auto;top:40px;"><div id="menu">
+ 
+<ul class="top">
+  <li style="height:30px; line-height:30px;"><em>安卓版本更新</em></li>
+ </ul>
+ <ul>
+  	<li id="bbgx"><a href="<?php echo U('Index/updateapp');?>"><em>安装包上传</em></a></li>
+  	
+  	<li id="lb"><a href="<?php echo U('Index/lbpic');?>"><em>轮播图</em></a></li>
+  	<li id="kc"><a href="<?php echo U('Index/lession');?>"><em>课程管理</em></a></li>
+ </ul>
+
+
+ </div>
+ </div>
+  
+<link rel="stylesheet" type="text/css" href="/aixuewen/Public/Admin/webuploader/0.1.5/webuploader.css" />
+<script type="text/javascript" src="/aixuewen/Public/Admin/webuploader/0.1.5/webuploader.min.js"></script>
+<script type="text/javascript" src="/aixuewen/Public/Admin/js/jquery-1.8.2.min.js"></script>
+<script type="text/javascript" src="/aixuewen/Public/Admin/js/jquery.form.js"></script>
+<script type="text/javascript" src="/aixuewen/Public/Admin/js/ajaxfileupload.js"></script>
+<script src="/aixuewen/Public/Admin/js/jquery.datetimepicker.js"></script>
+<div id="dcMain"> <!-- 当前位置 -->
+<div class="mainBox imgModule">
+  <h3>添加轮播图</h3>
+  <form id="form" action="/aixuewen/index.php/Admin/Index/addLunboHandle" method="post" enctype="multipart/form-data">
+  	<input id="pic" type="hidden" name="pic" value="" />
+    <table width="100%" border="0" cellpadding="8" cellspacing="0" class="tableBasic">
+        <tr>
+          <td align="right">图片预览：(建议尺寸 <span style="color: #F00;">520px * 280px</span>)</td>
+          <td>
+            <img id="thumbnail_img" src="" style="width:300px;height:180px">
+          </td>
+       </tr>
+      <tr>
+          <td align="right"></td>
+          <td>
+             <a class="btn" href="javascript:void(0);" style="position: relative; overflow: hidden; direction: ltr;">
+                        上传图片<input id="thumbnail" type="file" name="thumbnail" style="position: absolute; right: 0px; top: 0px; font-family: Arial; font-size: 118px; margin: 0px; padding: 0px; cursor: pointer; opacity: 0;" /></a>
+          </td>
+       </tr>
+        <tr>
+            <td class="label" align="right">链接：</td>
+            <td>
+                <input required="required" type="text" name="links" value="" size="80" class="inpMain"/>
+            </td>
+        </tr>
+       <tr>
+      <td width="131"></td>
+      <td>
+       <input name="submit" class="btn sub" type="submit" value="提交" />
+      </td>
+     </tr>
+    </table>
+  </form>
+</div>
+ <div class="clear"></div>
+ <div id="footer">
+  <div class="line"></div>
+</div>
+<div class="clear"></div> 
+</div>
+<script>
+$(".datetimepicker").datetimepicker({
+    lang:"ch", 
+    format: 'Y年m月d日  H:i',
+    startView:1
+});
+UE.getEditor('content', {
+  "initialFrameWidth" : "100%",   // 宽
+  "initialFrameHeight" : 400,      // 高
+  "maximumWords" : 10000            // 最大可以输入的字符数量
+});
+</script>
+<script>
+$('.nav ul li').each(function() {
+  $('.nav ul li').css("background","#0072C6");
+  $('.nav ul li a').css("color","#D9D9D9");
+});
+$('#kzmb').css("background","#60BBFF");
+$('#kzmb a').css("color","#FFFFFF");
+
+$('.con li').each(function() {
+  $('.con li').attr("class","");
+});
+$('#lb').attr("class","cur");
+
+
+$(function(){
+	$("#thumbnail").live('change',function(){ 
+	  	ajaxThumbnailUpload();
+	});
+});
+
+function ajaxThumbnailUpload() {
+var path = '/aixuewen/';
+  $.ajaxFileUpload
+  (
+    {
+      url: '/aixuewen/index.php/Admin/Index/uploadThumbnailHandle',
+      secureuri:false,
+      fileElementId:'thumbnail',
+      dataType: 'json',
+      success: function (data)
+      {
+    	  
+    	  if(typeof(data.error) != 'undefined')
+          {
+            if(data.error != '')
+            {
+              alert(data.error);
+            }else
+            {
+              $("#thumbnail_img").attr("src", path + data.msg);
+              $("#pic").val(data.msg);
+            }
+          }
+      },
+      error: function (data, status, e)
+      {
+        alert(e);
+      }
+    }
+  )
+  return false;
+}
+</script>
+
+<script>
+
+var loading=0;
+$(function(){
+  if(loading){
+    return false;
+  }
+  loading=1;
+   $('#form').ajaxForm({
+        beforeSubmit:  checkForm,// pre-submit callback
+        success:       complete,// post-submit callback
+        dataType: 'json'
+   });
+   
+    function checkForm(){
+    	 if(!$.trim ( $('#pic').val() )){
+   	        alert('请上传主图');
+   	        return false;
+   	     }   
+    }
+    
+    function complete(d){
+        if (!d.error){
+          alert("保存成功");
+          window.location.href="/aixuewen/index.php/Admin/Index/lbpic";
+        }else{
+          alert(d.error);
+          loading=0;
+        }
+    }
+
+});
+</script>
+</body>
+</html>
+</div>

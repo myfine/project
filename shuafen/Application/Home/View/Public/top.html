@@ -1,0 +1,13 @@
+
+<script src="__PUBLIC__/Home/layer/layer.js"></script>
+<script>
+	function myalert(a,b){
+		layer.alert(a, {
+		  time: 0 //不自动关闭
+		  ,btn: ['确定']
+		  ,yes: function(index){
+		    location.href=b;
+		  }
+		});
+	}
+</script>

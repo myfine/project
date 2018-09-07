@@ -1,0 +1,15 @@
+<volist name="list" id="list">
+     <div class="List-item">
+      <div class="ContentItem AnswerItem">
+       <h2 class="ContentItem-title"><a target="_blank" href="__URL__/detail/id/{$list.vid}">{$list.title}</a></h2>
+       <div class="RichContent is-collapsed">
+        <div class="RichContent-inner">
+         {$list.content}
+        </div>
+        <div class="ContentItem-actions" style="color:#B2B2B2">
+        		{$list.ctime|time_tran}
+        </div>
+       </div>
+      </div>
+     </div>
+</volist>

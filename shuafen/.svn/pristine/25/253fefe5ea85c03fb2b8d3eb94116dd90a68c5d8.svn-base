@@ -1,0 +1,19 @@
+<volist name="list" id="list">
+   <div class="List-item">
+     <div class="ContentItem-meta">
+       <div class="AuthorInfo">
+           <a class="UserLink-link" href="__GROUP__/Viewpoint/personal/uid/{$list.id}"><img class="Avatar AuthorInfo-avatar" width="38" height="38" src="{$list.avatar}"  /></a>
+        <div class="AuthorInfo-content">
+          <span class="UserLink AuthorInfo-name">
+             <a class="UserLink-link" href="__GROUP__/Viewpoint/personal/uid/{$list.id}">{$list.nickname}</a>
+           </span>
+           <if condition="$list['is_follow']">
+           	<span style="float:right;clear:none;" class="Button SearchBar-askButton Button--primary Button--grey" onclick="guanzhu('{$list.id}')" >取消关注</span>
+           <else/>
+           	<span style="float:right;clear:none;background:#EF8023;border:1px #EF8023 solid;" class="Button SearchBar-askButton Button--primary Button--grey" onclick="guanzhu('{$list.id}')" >关注</span>
+           </if>
+        </div>
+       </div>
+     </div>
+   </div>
+</volist>

@@ -1,0 +1,108 @@
+      <include file="Public:header" />
+      <style>
+      .Profile-mainColumn{width:100%;}
+      </style>
+     <div class="Sticky--holder" style="position: relative; top: auto; right: auto; bottom: auto; left: auto; display: block; float: none; margin: 0px; height: 53px;"></div>
+    <main role="main" class="App-main">
+     <div>
+      <div>
+      <include file="public_header" />
+       <div class="Profile-main">
+        <div class="Profile-mainColumn">
+         <div class="Card ProfileMain" id="ProfileMain">
+         	<div class="ProfileMain-header">
+			 <ul role="tablist" class="Tabs ProfileMain-tabs">
+
+
+			  <li role="tab" class="Tabs-item" aria-controls="Profile-answers"><a class="Tabs-link" href="__URL__/personal">
+			    		订单记录<span class="Tabs-meta"></span></a></li>
+
+<?php
+    $res = M('first_charge_record')->where(array('userid'=>$_SESSION['user']['id']))->find();
+    if(!$res){
+?>
+			  <li role="tab" class="Tabs-item" aria-controls="Profile-asks"><a class="Tabs-link" href="__URL__/first">
+			    		超级首冲<span class="Tabs-meta"><if condition="$mycommentcount">{$mycommentcount}</if></span></a></li>
+
+<?php
+  }
+?>
+	
+			  <li role="tab" class="Tabs-item" aria-controls="Profile-asks"><a class="Tabs-link is-active" href="__URL__/tousu">
+			    		我要投诉</a></li>
+			 </ul>
+			</div>
+          <div>
+           <div>
+            <div class="Sticky"></div>
+           </div>
+          </div>
+          
+<style>
+.tousu_div{display:table;text-align: center;display: table;margin:150px auto;}
+.tousu_tel{color:#EF8023;font-size:30px;}
+.tousu_number{font-size:30px;color:#d9680a;}
+</style>
+
+          <div class="List Profile-answers" id="Profile-answers">
+          <!--开始-->
+                <div class="tousu_div">
+                    <span class="tousu_tel"><b>投诉电话</b>：</span><span class="tousu_number">15866666666</span>
+                </div>
+	         <!--结束-->
+          </div>
+          
+         </div>
+        </div>
+        
+         <include file="Me:public_right" />
+        
+       </div>
+      </div>
+     </div>
+    </main>
+   </div>
+  </div>
+  <div>
+  </div>
+
+<style>
+.categoryShow_title{text-align:center;margin-bottom:20px;color:red;font-size:16px;}
+.jiahao{text-align: center;float:left;width:10%;font-size:20px;}
+</style>
+
+  <include file="Public:footer" />
+ </body>
+</html>
+<script>
+	$("#page").click(function(){
+		var p = $(this).attr("p");
+		params = {};
+	    params.pageNo = p;
+	    var url = '__GROUP__/Viewpoint/ajaxLiyan';
+	    $.post(url, params, function(d){
+   			if(d.end){
+      			$("#pagediv").hide();
+      		}
+ 	   		$("#container").append(d.content);
+	   	}, 'json');
+		
+		ps = parseInt(p) + 1;
+		$(this).attr("p", ps);
+	});
+
+</script>
+
+
+
+
+
+
+<script> 
+
+  function hideShow(){
+       $('#categoryShow').hide();
+  }
+
+ 
+</script>

@@ -1,0 +1,410 @@
+      <include file="Public:header" />
+     <div class="Sticky--holder" style="position: relative; top: auto; right: auto; bottom: auto; left: auto; display: block; float: none; margin: 0px; height: 53px;"></div>
+    </div>
+    <main role="main" class="App-main">
+     <div>
+      <div>
+       <div class="Profile-main">
+        <div class="Profile-mainColumn">
+         <div class="Card ProfileMain">
+         	<ul id="sfpro">
+         		<volist name="list" id="vo">
+         		<li onclick="showDiv('{$vo.id}','{$vo.title}')" style="cursor:pointer">
+         			<img src="__PUBLIC__/upload/{$vo.pic}" width="120px" />
+         			<p>{$vo.title}</p>
+         		</li>
+         		</volist>
+         	</ul>
+         </div>
+        </div>
+        <div class="Profile-sideColumn" data-za-module="RightSideBar">
+        <div class="Card">
+          <div class="Profile-sideColumnItems" style="padding:0px">
+           <div class="Profile-sideColumnItem tag">
+           		<a href="javascript:void(0)" class="AppHeader-navItem" id="mycenter">个人中心</a>
+           </div>
+           <div class="Profile-sideColumnItem tag" >
+           		<a href="javascript:void(0)" class="AppHeader-navItem" id="surIn">超级首充</a>
+           </div>
+           <div class="Profile-sideColumnItem tag">
+           		<a href="javascript:void(0)" class="AppHeader-navItem" id="myTousu">我要投诉</a>
+           </div>
+          </div>
+         </div>
+        </div>
+       </div>
+      </div>
+     </div>
+    </main>
+   </div>
+  </div>
+  <div>
+  </div>
+ </body>
+</html>
+
+<style>
+.modiv{width:33.333%;float: left;margin-bottom:15px;}
+.modiv_left{width:90%;float: left;border-radius: 5px;border:1px solid #ccc;padding:5px;margin-left:1.5%;cursor:pointer}
+.cishu{margin-left:50px;color:#3879d9;}
+.modiv_yef_a{float: left;margin-left: 25px;}
+.modiv_yef_a img{width:20px;}
+.modiv_yef_b{margin-left:5px;float: left;}
+.modiv_active{border:1px solid #3879d9;}
+</style>
+<!-- 弹出框 -->
+  <div class="Modal-wrapper" id="categoryDiv" style="display:none">
+  <div class="Modal-backdrop"></div>
+  <div class="Modal Modal--large QuestionAsk-Modal" tabindex="0">
+
+
+  <div class="Modal-inner">
+  <h3 class="Modal-title" id="shua_title"></h3>
+  <input type="hidden" xf="" id="productid">
+   <div class="Modal-content" style="height:140px;padding: 0 15px;">
+<!--开始-->
+   		<div class="modiv">
+   			<div class="modiv_left modiv_active" >
+	   			<div class="modiv_yi"><span class="cishu"><span class="modiv_number">10000</span>次</span></div>
+	   			<div class="modiv_yef">
+	   				<div class="modiv_yef_a"><img src="__PUBLIC__/Home/image/kashang_fenbi.png"></div>
+	   				<div class="modiv_yef_b"><span class="modiv_fenbi">100000</span>粉币</div>
+	   			</div>
+   			</div>
+   		</div>
+
+   		<div class="modiv">
+   			<div class="modiv_left">
+	   			<div class="modiv_yi"><span class="cishu"><span class="modiv_number">2000</span>次</span></div>
+	   			<div class="modiv_yef">
+	   				<div class="modiv_yef_a"><img src="__PUBLIC__/Home/image/kashang_fenbi.png"></div>
+	   				<div class="modiv_yef_b"><span class="modiv_fenbi">1000</span>粉币</div>
+	   			</div>
+   			</div>
+   		</div>
+
+   		<div class="modiv">
+   			<div class="modiv_left">
+	   			<div class="modiv_yi"><span class="cishu"><span class="modiv_number">3000</span>次</span></div>
+	   			<div class="modiv_yef">
+	   				<div class="modiv_yef_a"><img src="__PUBLIC__/Home/image/kashang_fenbi.png"></div>
+	   				<div class="modiv_yef_b"><span class="modiv_fenbi">30000</span>粉币</div>
+	   			</div>
+   			</div>
+   		</div>
+
+   			<div class="modiv">
+   			<div class="modiv_left" >
+	   			<div class="modiv_yi"><span class="cishu"><span class="modiv_number">5000</span>次</span></div>
+	   			<div class="modiv_yef">
+	   				<div class="modiv_yef_a"><img src="__PUBLIC__/Home/image/kashang_fenbi.png"></div>
+	   				<div class="modiv_yef_b"><span class="modiv_fenbi">50000</span>粉币</div>
+	   			</div>
+   			</div>
+   		</div>
+
+   		<div class="modiv">
+   			<div class="modiv_left">
+	   			<div class="modiv_yi"><span class="cishu"><span class="modiv_number">6000</span>次</span></div>
+	   			<div class="modiv_yef">
+	   				<div class="modiv_yef_a"><img src="__PUBLIC__/Home/image/kashang_fenbi.png"></div>
+	   				<div class="modiv_yef_b"><span class="modiv_fenbi">60000</span>粉币</div>
+	   			</div>
+   			</div>
+   		</div>
+
+   		<div class="modiv">
+   			<div class="modiv_left">
+	   			<div class="modiv_yi"><span class="cishu"><span class="modiv_number">10000</span>次</span></div>
+	   			<div class="modiv_yef">
+	   				<div class="modiv_yef_a"><img src="__PUBLIC__/Home/image/kashang_fenbi.png"></div>
+	   				<div class="modiv_yef_b"><span class="modiv_fenbi">100000</span>粉币</div>
+	   			</div>
+   			</div>
+   		</div>
+<!--结束-->
+   </div>
+
+  <div class="Modal-content" style="">
+  	<div class="QuestionAsk-section">
+  	<div class="QuestionAsk-title Input-wrapper Input-wrapper--spread Input-wrapper--multiline Input-wrapper--large">
+  	<textarea required="" name="content" rows="2" class="Input" placeholder="请输入您的快手作品ID" id="mycontent"></textarea></div></div>
+	
+  <div class="QuestionAsk">
+  <div class="QuestionAsk-buttonGroup">
+  	<input type="hidden" value="{$_SESSION['user']['id']}" id="myuserid">
+  <button class="Button Button--primary Button--blue" type="button" id="tijiao_shuafen" style="background:#0f88eb;border:1px #0f88eb solid">确定</button></div>
+  </div></div>
+</div>
+
+
+
+
+  <button class="Button Modal-closeButton Button--plain" type="button" onclick="hideDiv()"><svg viewBox="0 0 14 14" class="Icon Modal-closeIcon Icon--remove" width="16" height="16" aria-hidden="true" style="height: 16px; width: 16px;"><title></title><g><path d="M8.486 7l5.208-5.207c.408-.408.405-1.072-.006-1.483-.413-.413-1.074-.413-1.482-.005L7 5.515 1.793.304C1.385-.103.72-.1.31.31-.103.724-.103 1.385.305 1.793L5.515 7l-5.21 5.207c-.407.408-.404 1.072.007 1.483.413.413 1.074.413 1.482.005L7 8.485l5.207 5.21c.408.407 1.072.404 1.483-.007.413-.413.413-1.074.005-1.482L8.485 7z"></path></g></svg></button></div></div>
+
+
+<input type="hidden" id="myid" value="{$_SESSION['user']['id']}">
+<!--弹出框结束-->
+<!--判断是否登录-->
+		<script>
+		$(function(){
+			$('#mycenter').click(function(){
+				myid = $('#myid').val();
+				if(myid==''||myid==undefined){
+					layer.alert('请先登录');
+				}else{
+					location.href="__MODULE__/Me/personal/";
+				}
+			})
+
+			$('#surIn').click(function(){
+				myid = $('#myid').val();
+				if(myid==''||myid==undefined){
+					layer.alert('请先登录');
+				}else{
+					location.href="__MODULE__/Me/first";
+				}
+			})
+
+
+			$('#myTousu').click(function(){
+				myid = $('#myid').val();
+				if(myid==''||myid==undefined){
+					layer.alert('请先登录');
+				}else{
+					location.href="__MODULE__/Me/tousu";
+				}
+			}) 
+		})
+		</script>
+
+
+<!--判断是否登录结束-->
+
+
+
+
+
+
+<script>
+	$("#page").click(function(){
+		var p = $(this).attr("p");
+		params = {};
+	    params.pageNo = p;
+	    params.tab = "{$_GET['tab']}";
+	    var url = '__URL__/ajaxIndex';
+	    $.post(url, params, function(d){
+   			if(d.end){
+      			$("#pagediv").hide();
+      		}
+ 	   		$("#container").append(d.content);
+	   	}, 'json');
+		
+		ps = parseInt(p) + 1;
+		$(this).attr("p", ps);
+	});
+
+	
+		function addcontent(){
+			var h = '<div class="Field-content" style="padding: 0 34px 0 140px;"><textarea name="content[]" rows="3" class="DescriptionField-input TextArea" maxlength="255" placeholder="最多输入255字"></textarea><img style="float:right;clear:none" width="30" src="__TMPL__/Public/image/minu.png" onclick="remove(this)"/></div>';
+			$("#lycontent").append(h);
+		}
+		
+		function remove(item){
+			$(item).parent().remove();
+		}
+		
+		function getCategory(item){
+			var val = $(item).val();
+			if($(item).attr("checked") == "checked"){
+				params = {};
+	   		    params.id = val;
+	   		    var url = '__GROUP__/Viewpoint/selectCategory';
+	   		    $.post(url, params, function(d){
+	   		  		$.each(d.list, function(n, v) {
+	   		  			var html = "";
+	   		  			if(v.hasLower == 1){
+	   		  				if(v.isSelect == "1"){
+	   		  					html = '<span id="c' + v.id + '"><input name="fa" type="checkbox" checked="checked" disabled="disabled" value="' + v.id + '" onclick="getCategory2(this)" />' + v.name + '&nbsp&nbsp</span>';
+	   		  				}else{
+	   		  					html = '<span id="c' + v.id + '"><input name="fa" type="checkbox" value="' + v.id + '" onclick="getCategory2(this)" />' + v.name + '&nbsp&nbsp</span>';
+	   		  				}
+	   		  			}else{
+	   		  				if(v.isSelect == "1"){
+	   		  					html = '<span id="c' + v.id + '"><input name="category" type="checkbox" checked="checked" disabled="disabled" value="' + v.id + '" n="' + v.name + '" />' + v.name + '&nbsp&nbsp</span>';
+	   		  				}else{
+	   		  					html = '<span id="c' + v.id + '"><input name="category" type="checkbox" value="' + v.id + '" n="' + v.name + '" />' + v.name + '&nbsp&nbsp</span>';
+	   		  				}
+	   		  			}
+	   		  			$("#second").append(html);
+	   				});
+	   		    }, 'json');
+			}else{
+				params = {};
+	   		    params.id = val;
+	   		    var url = '__GROUP__/Viewpoint/selectCategory';
+	   		    $.post(url, params, function(d){
+	   		  		$.each(d.list, function(n, v) {
+   					$("#c" + v.id).remove();
+	   				});
+	   		    }, 'json');
+	   		    
+				
+			}
+		}
+		
+		function getCategory2(item){
+			var val = $(item).val();
+			if($(item).attr("checked") == "checked"){
+				params = {};
+	   		    params.id = val;
+	   		    var url = '__GROUP__/Viewpoint/selectCategory';
+	   		    $.post(url, params, function(d){
+	   		  		$.each(d.list, function(n, v) {
+	   		  			var html = "";
+	   		  			if(v.hasLower == 1){
+	   		  				if(v.isSelect == "1"){
+	   		  					html = '<span id="c' + v.id + '"><input name="fa" type="checkbox" checked="checked" disabled="disabled" value="' + v.id + '" onclick="selectCategory(this)" />' + v.name + '&nbsp&nbsp</span>';
+	   		  				}else{
+	   		  					html = '<span id="c' + v.id + '"><input name="fa" type="checkbox" value="' + v.id + '" onclick="selectCategory(this)" />' + v.name + '&nbsp&nbsp</span>';
+	   		  				}
+	   		  			}else{
+		   		  			if(v.isSelect == "1"){
+		   		  				html = '<span id="c' + v.id + '"><input name="category" type="checkbox" checked="checked" disabled="disabled" value="' + v.id + '" n="' + v.name + '" />' + v.name + '&nbsp&nbsp</span>';
+		   		  			}else{
+		   		  			html = '<span id="c' + v.id + '"><input name="category" type="checkbox" value="' + v.id + '" n="' + v.name + '" />' + v.name + '&nbsp&nbsp</span>';
+		   		  			}
+	   		  			}
+	   		  			$("#third").append(html);
+	   				});
+	   		    }, 'json');
+			}else{
+				params = {};
+	   		    params.id = val;
+	   		    var url = '__GROUP__/Viewpoint/selectCategory';
+	   		    $.post(url, params, function(d){
+	   		  		$.each(d.list, function(n, v) {
+   					$("#c" + v.id).remove();
+	   				});
+	   		    }, 'json');
+	   		    
+				
+			}
+		}
+		
+		function chooseCategory(){
+			var cname = "";
+			var cid = "";
+			var i = 1;
+			if($("input[name='category']:checked").length == 0){
+				alert("请选择一个主题");
+			return false;
+			}
+			$.each($("input[name='category']:checked"),function(){
+				if(i == $("input[name='category']:checked").length ){
+					cname = cname + $(this).attr("n");
+	   				cid = cid + $(this).val();
+				}else{
+					cname = cname + $(this).attr("n") + ",";
+	   				cid = cid + $(this).val() + ",";
+				}
+				i++;
+			});
+			
+			params = {};
+		    params.categoryId = cid;
+		    var url = '__URL__/focusCategory';
+		    $.post(url, params, function(d){
+		        if(d.error == ""){
+		        	alert("关注成功");
+		            window.location.reload();
+		        }else{
+		          	alert(d.error);
+		        }
+		    }, 'json');
+		}
+		
+		//弹出框方法
+		function showDiv(a,b){
+			$('#shua_title').html('');
+			$('#productid').attr('xf','');
+			$('#shua_title').html(b);
+			$('#productid').attr('xf',a);
+			$("#categoryDiv").show();
+		}
+		//弹出框方法结束
+		function hideDiv(){
+			$("#categoryDiv").hide();
+		}
+		
+		function deleteCategory(c,cid){
+			params = {};
+		    params.categoryId = cid;
+		    var url = '__URL__/deleteFocusCategory';
+		    $.post(url, params, function(d){
+		        if(d.error == ""){
+		        	$(c).parent().remove();
+		        }else{
+		          	alert(d.error);
+		        }
+		    }, 'json');
+		}
+</script>
+
+<script>
+	$(function(){
+		$('.modiv_left').click(function(){
+			$('.modiv_left').removeClass('modiv_active');
+			$(this).addClass('modiv_active');
+		})
+	})
+</script>
+
+
+<script>
+$(function(){
+		$('#tijiao_shuafen').click(function(){
+			productid = $('#productid').attr('xf');
+			modiv_number = $('.modiv_active').find('.modiv_number').html();
+			modiv_fenbi = $('.modiv_active').find('.modiv_fenbi').html();
+			pro = {};
+			pro.productid = productid;
+			//alert(modiv_number);return false;
+			pro.shuafen_num = modiv_number;
+			pro.needfenbi = modiv_fenbi;
+			pro.userid = $('#myuserid').val();
+			pro.content = $('#mycontent').val();
+			params =  JSON.stringify(pro);
+			//JQuery以JSON方式提交数据到服务端
+			$.ajax({
+		        type: "POST",
+		        url: "__MODULE__/Interface/submitorder",
+		        contentType: "application/json; charset=utf-8",
+		        data: params,
+		        dataType: "json",
+		        success: function (message) {
+		            if (message.error ==  '') {
+		                myalert("请求已提交！我们会尽快与您取得联系",'');
+		            }else{
+		            	layer.alert(message.error);
+		            }
+		        },
+		        error: function (message) {
+		            layer.alert("提交数据失败！");
+		        }
+		    });
+	})
+})
+
+
+
+
+
+
+
+	
+</script>
+
+
+
+<include file="Public:footer" />

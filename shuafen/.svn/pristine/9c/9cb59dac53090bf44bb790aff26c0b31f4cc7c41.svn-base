@@ -1,0 +1,22 @@
+<volist name="list" id="list">
+<div class="List-item">
+ <div class="ContentItem AnswerItem">
+  <h2 class="ContentItem-title">
+  	<if condition="$list['tag'] eq '正确'">
+ 			<div class="Tag QuestionTopic" style="background:#9ccc65;color:#FFFFFF">{$list.tag}</div>
+<elseif condition="$list['tag'] eq '错误'" />
+	<div class="Tag QuestionTopic" style="background:#ff7043;color:#FFFFFF">{$list.tag}</div>
+<elseif condition="$list['tag'] eq '未知'" />
+	<div class="Tag QuestionTopic" style="background:#ffa726;color:#FFFFFF">{$list.tag}</div>
+<elseif condition="$list['tag'] eq '无聊'" />
+	<div class="Tag QuestionTopic" style="background:#ffa726;color:#FFFFFF">{$list.tag}</div>
+  		</if>
+   <a target="_blank" href="__GROUP__/Me/lydetail/id/{$list.id}">{$list.title}</a></h2>
+   <div class="RichContent is-collapsed">
+    <div class="ContentItem-actions">
+      {$list.ctime}&nbsp&nbsp&nbsp&nbsp{$list.category}
+    </div>
+   </div>
+  </div>
+ </div>
+</volist>

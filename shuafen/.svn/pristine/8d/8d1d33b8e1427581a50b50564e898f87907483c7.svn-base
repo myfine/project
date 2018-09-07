@@ -1,0 +1,158 @@
+<layout name="Index/index" />
+<link rel="stylesheet" type="text/css" href="__PUBLIC__/Admin/webuploader/0.1.5/webuploader.css" />
+<script type="text/javascript" src="__PUBLIC__/Admin/webuploader/0.1.5/webuploader.min.js"></script>
+<script type="text/javascript" src="__PUBLIC__/Admin/js/jquery-1.8.2.min.js"></script>
+<script type="text/javascript" src="__PUBLIC__/Admin/js/jquery.form.js"></script>
+<script type="text/javascript" src="__PUBLIC__/Admin/js/ajaxfileupload.js"></script>
+<script src="__PUBLIC__/Admin/js/jquery.datetimepicker.js"></script>
+<style>
+	.label{
+		background-color: #60BBFF;
+		color: #FFF;
+	}
+	td{
+		text-align: center;
+	}
+	.addnum{
+		height: 35px;
+		line-height: 35px;
+		padding-left:15px;
+	}
+</style>
+<div id="dcMain"> <!-- 当前位置 -->
+<div class="mainBox imgModule">
+  <h3>
+  	<span class="actionBtn" style="margin-left: 10px; cursor: pointer;"onclick="goback();">返回</span>
+  	编辑商品:"{$proname}"的刷粉次数
+  </h3>
+  	<!--<p style="margin-bottom: 20px;">* 如果你是添加刷粉次数，请添加6条记录后离开</p>-->
+    <table width="100%" border="0" cellpadding="8" cellspacing="0" class="tableBasic">
+    		<tr>
+					<td class="label" align="">次数：</td>
+					<td class="label" align="">需要粉币：</td>
+				</tr>
+				<php>if(count($numlist)>=6){</php>
+    		<volist name="numlist" id="vo">
+    			<tr>
+            <td>
+                <input type="text" name="title" id="{$vo.id}" size="80" value="{$vo.num_shua}" class="inpMain"/>
+            </td>
+            <td>
+            	<span>{$vo.num_fenbi}</span>
+            </td>
+	        </tr>
+    		</volist>
+    		<php>}else{</php>
+    			
+    			<volist name="numlist" id="vo">
+	    			<tr>
+	            <td>
+	                <input type="text" name="title" id="{$vo.id}" size="80" value="{$vo.num_shua}" class="inpMain"/>
+	            </td>
+	            <td>
+	            	<span>{$vo.num_fenbi}</span>
+	            </td>
+		        </tr>
+	    		</volist>
+    			
+    			<tr>
+            <td>
+                <input type="text" name="title" id="addcs" size="80"  placeholder="请输入刷粉次数， 100的整数倍" class="addnum"/>
+            </td>
+            <td>
+            	<span></span>
+            </td>
+	      	</tr>
+	      	<tr>
+				      <td width="131">
+				      	<input name="submit" class="btn sub" type="submit" value="提交"  id="tj" />
+				      </td>
+				      <td></td>
+			     </tr>
+    		<php>}</php>
+    		<tr>
+				      <td width="131"></td>
+				      <td></td>
+			     </tr>
+    </table>
+</div>
+ <div class="clear"></div>
+ <div id="footer">
+  <div class="line"></div>
+</div>
+<div class="clear"></div> 
+</div>
+
+<script>
+$(".datetimepicker").datetimepicker({
+    lang:"ch", 
+    format: 'Y年m月d日  H:i',
+    startView:1
+});
+UE.getEditor('content', {
+  "initialFrameWidth" : "100%",   // 宽
+  "initialFrameHeight" : 400,      // 高
+  "maximumWords" : 10000            // 最大可以输入的字符数量
+});
+</script>
+<script>
+$('.nav ul li').each(function() {
+  $('.nav ul li').css("background","#0072C6");
+  $('.nav ul li a').css("color","#D9D9D9");
+});
+$('#kzmb').css("background","#60BBFF");
+$('#kzmb a').css("color","#FFFFFF");
+
+$('.con li').each(function() {
+  $('.con li').attr("class","");
+});
+$('#kc').attr("class","cur");
+</script>
+
+
+
+<script>
+		function goback(){
+    	history.go(-1);
+    }
+		
+	
+</script>
+<script>
+	$('.inpMain').each(function() {
+	  $(this).blur(function() {
+	      params = {};
+	      params.proid = "{$proid}";
+	      params.id = $(this).attr("id");
+	      params.shuafen_num = $(this).val(); 
+	      var url = '__URL__/change_sfcs';
+	      $.post(url, params, function(d){
+	        if(d.error == ""){
+	            window.location.reload();
+	        }else{
+	          alert(d.error);
+	          window.location.reload();
+	        }
+	      }, 'json');
+	  });
+	});
+	
+	
+	  $("#tj").click(function() {
+	  		var sss = $("#addcs").val();
+	      params = {};
+	      params.proid = "{$proid}";
+	      params.shuafen_num = sss; 
+	      var url = '__URL__/add_sfcs';
+	      $.post(url, params, function(d){
+	        if(d.error == ""){
+	            window.location.reload();
+	        }else{
+	          alert(d.error);
+	          window.location.reload();
+	        }
+	      }, 'json');
+	  });
+</script>
+</body>
+</html>

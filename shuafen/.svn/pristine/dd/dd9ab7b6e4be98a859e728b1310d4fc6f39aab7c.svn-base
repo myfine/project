@@ -1,0 +1,38 @@
+<volist name="list" id="list">
+<div class="List-item">
+ <div class="ContentItem AnswerItem">
+  <div class="ContentItem-meta">
+   <div class="AnswerItem-meta">
+    <div class="AuthorInfo">
+     <span class="UserLink AuthorInfo-avatarWrapper">
+      <div class="Popover">
+       <div id="Popover-10268-7987-toggle">
+       	 <if condition="$list['receive_id'] eq '0'">
+        	<img class="Avatar AuthorInfo-avatar" width="38" height="38" src="{$list.avatar}"/>
+        <else/>
+        	<img class="Avatar AuthorInfo-avatar" width="38" height="38" src="__TMPL__/Public/image/icon.png"/>
+        </if>
+       </div>
+      </div></span>
+     <div class="AuthorInfo-content">
+      <div class="AuthorInfo-head">
+       <span class="UserLink AuthorInfo-name">
+        <div class="Popover">
+         <if condition="$list['receive_id'] eq '0'">我<else/>立证团队</if>
+        </div></span>
+      </div>
+     </div>
+    </div>
+   </div>
+  </div>
+  <div class="RichContent is-collapsed">
+   <div class="RichContent-inner">
+    <span class="RichText CopyrightRichText-richText">{$list.content}</span>
+   </div>
+   <div class="ContentItem-actions">
+     {$list.ctime}
+   </div>
+  </div>
+ </div>
+</div>
+</volist>

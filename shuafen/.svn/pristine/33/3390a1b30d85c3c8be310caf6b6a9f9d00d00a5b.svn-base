@@ -1,0 +1,174 @@
+      <include file="Public:header" />
+      <style>
+      .Profile-mainColumn{width:100%;}
+      </style>
+     <div class="Sticky--holder" style="position: relative; top: auto; right: auto; bottom: auto; left: auto; display: block; float: none; margin: 0px; height: 53px;"></div>
+    <main role="main" class="App-main">
+     <div>
+      <div>
+      <include file="public_header" />
+       <div class="Profile-main">
+        <div class="Profile-mainColumn">
+         <div class="Card ProfileMain" id="ProfileMain">
+         	<div class="ProfileMain-header">
+			 <ul role="tablist" class="Tabs ProfileMain-tabs">
+
+
+			  <li role="tab" class="Tabs-item" aria-controls="Profile-answers"><a class="Tabs-link" href="__URL__/personal">
+			    		订单记录<span class="Tabs-meta"></span></a></li>
+
+<?php
+    $res = M('first_charge_record')->where(array('userid'=>$_SESSION['user']['id']))->find();
+    if(!$res){
+?>
+			  <li role="tab" class="Tabs-item" aria-controls="Profile-asks"><a class="Tabs-link is-active" href="__URL__/first">
+			    		超级首冲<span class="Tabs-meta"><if condition="$mycommentcount">{$mycommentcount}</if></span></a></li>
+<?php
+  }
+?>
+
+	
+			  <li role="tab" class="Tabs-item" aria-controls="Profile-asks"><a class="Tabs-link" href="__URL__/tousu">
+			    		我要投诉</a></li>
+			 </ul>
+			</div>
+          <div>
+           <div>
+            <div class="Sticky"></div>
+           </div>
+          </div>
+          
+<style>
+.first_div{width:100%;text-align: center;float:left;}
+.first_div_a{width:20px;float:left;}
+.first_div_a img,.first_div_c img{width:100%;}
+.first_div_b{float:left;margin:0 10px;}
+.first_div_c{float:left;width:20px}
+
+.first_div_fenbi_left{float:left;text-align: center;}
+.first_div_fenbi_logo{width:30px;text-align: center;margin-left:15px;}
+.first_div_fenbi_logo img{width:100%;}
+.first_div_fenbi_total{}
+.first_div_fenbi_middle{float:left;margin:15px 30px 0 30px;}
+.first_div_fenbi_right{float:left;}
+.first_div_show{width:250px;margin:20px auto;}
+.first_div_show p{}
+.first_div_show_left{text-align: center;}
+.first_div_show_left span{color:#EF8023;}
+.first_div_show_right{}
+.first_div_show input{display:table;margin:auto;background: #0f88eb;
+    border: 1px #0f88eb solid;color:#fff;padding:10px 20px;}
+</style>
+
+          <div class="List Profile-answers" id="Profile-answers">
+          <!--开始-->
+              <div class="first_div">
+              <div style="display:table;margin:20px auto;">
+                  <div class="first_div_a"><img src="__PUBLIC__/Home/image/first_left_right.png"></div>
+                  <div class="first_div_b">礼包内容</div>
+                  <div class="first_div_c"><img src="__PUBLIC__/Home/image/first_left_right.png"></div>
+            </div>
+              </div>
+
+
+              <div class="first_div">
+                 <div style="display:table;margin:20px auto;">
+                  <div class="first_div_fenbi_left">
+                      <div class="first_div_fenbi_logo"><img src="__PUBLIC__/Home/image/fenbi_sign_success.png"></div>
+                      <div class="first_div_fenbi_total">9000粉币</div>
+                  </div>
+                  <div class="first_div_fenbi_middle">+</div>
+                  <div class="first_div_fenbi_right">
+                      <div class="first_div_fenbi_logo"><img src="__PUBLIC__/Home/image/fenbi_sign_success.png"></div>
+                      <div class="first_div_fenbi_total">2000粉币</div>
+                  </div>
+              </div>
+              </div>
+
+
+
+          <div class="first_div">
+              <div style="display:table;margin:20px auto;">
+                  <div class="first_div_a"><img src="__PUBLIC__/Home/image/first_left_right.png"></div>
+                  <div class="first_div_b">活动规则</div>
+                  <div class="first_div_c"><img src="__PUBLIC__/Home/image/first_left_right.png"></div>
+            </div>
+          </div>
+
+
+              <div class="first_div_show">
+                  <p>1、首充大回馈，超值礼包大放送</p>
+                  <p>2、每人每号只限一次</p>
+                  <p>3、超值礼包包含:9000粉币+2000粉币</p>
+              </div>
+
+              <div class="first_div_show">
+                  <div class="first_div_show_left">支付金额<span>￥<span id="price">9</span></span></div>
+              </div>
+
+              <div class="first_div_show"><input type="submit" value="立即购买" id="zhifu"></div>
+	         <!--结束-->
+          </div>
+          
+         </div>
+        </div>
+        
+         <include file="Me:public_right" />
+        
+       </div>
+      </div>
+     </div>
+    </main>
+   </div>
+  </div>
+  <div>
+  </div>
+
+<style>
+.categoryShow_title{text-align:center;margin-bottom:20px;color:red;font-size:16px;}
+.jiahao{text-align: center;float:left;width:10%;font-size:20px;}
+</style>
+
+  <include file="Public:footer" />
+ </body>
+</html>
+<script>
+	$("#page").click(function(){
+		var p = $(this).attr("p");
+		params = {};
+	    params.pageNo = p;
+	    var url = '__GROUP__/Viewpoint/ajaxLiyan';
+	    $.post(url, params, function(d){
+   			if(d.end){
+      			$("#pagediv").hide();
+      		}
+ 	   		$("#container").append(d.content);
+	   	}, 'json');
+		
+		ps = parseInt(p) + 1;
+		$(this).attr("p", ps);
+	});
+
+</script>
+
+
+
+
+
+
+<script> 
+  $('#zhifu').click(function(){
+      price = $('#price').html();
+      location.href="__MODULE__/Zhifu/pay/price/"+price;
+  })
+
+
+
+
+
+  function hideShow(){
+       $('#categoryShow').hide();
+  }
+
+ 
+</script>

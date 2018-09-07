@@ -1,0 +1,87 @@
+     <include file="Public:header" />
+     <div class="Sticky--holder" style="position: relative; top: auto; right: auto; bottom: auto; left: auto; display: block; float: none; margin: 0px; height: 53px;"></div>
+    </div>
+    <main role="main" class="App-main">
+     <div>
+      <div>
+		<include file="public_header" />
+       <div class="Profile-main">
+        <div class="Profile-mainColumn">
+         <div class="Card ProfileMain" id="ProfileMain">
+          <ul role="tablist" class="Tabs ProfileMain-tabs">
+			   <li role="tab" class="Tabs-item" aria-controls="Profile-answers"><a class="Tabs-link" href="__URL__/personal">
+			    		我的立言<span class="Tabs-meta"><if condition="$myliyancount">{$myliyancount}</if></span></a></li>
+			  <li role="tab" class="Tabs-item" aria-controls="Profile-asks"><a class="Tabs-link is-active" href="__URL__/comment">
+			    		我的评论<span class="Tabs-meta"><if condition="$mycommentcount">{$mycommentcount}</if></span></a></li>
+			  <li role="tab" class="Tabs-item" aria-controls="Profile-asks"><a class="Tabs-link" href="__URL__/gzliyan/type/1">
+			    		关注的立言<span class="Tabs-meta"><if condition="$gzcount">{$gzcount}</if></span></a></li>
+			  <li role="tab" class="Tabs-item" aria-controls="Profile-asks"><a class="Tabs-link" href="__URL__/friends/type/1">
+			    		我的好友</a></li>
+			  <li role="tab" class="Tabs-item" aria-controls="Profile-asks"><a class="Tabs-link" href="__URL__/ziliao/type/1">
+			    		资料</a></li>
+			  <li role="tab" class="Tabs-item" aria-controls="Profile-asks"><a class="Tabs-link" href="__URL__/tsjy/type/1">
+			    		建议维权</a></li>
+			 </ul>
+          <div>
+           <div>
+            <div class="Sticky"></div>
+           </div>
+          </div>
+          <div class="List Profile-answers" id="Profile-answers">
+           <div>
+            <volist name="list" id="list">
+		            <div class="List-item">
+		             <div class="ContentItem AnswerItem">
+		              <h2 class="ContentItem-title"><a target="_blank" href="__URL__/detail/id/{$list.vid}">{$list.title}</a></h2>
+		              <div class="RichContent is-collapsed">
+		               <div class="RichContent-inner">
+		                {$list.content}
+		               </div>
+		               <div class="ContentItem-actions" style="color:#B2B2B2">
+		               		{$list.ctime|time_tran}
+		               </div>
+		              </div>
+		             </div>
+		            </div>
+		       </volist>
+		       
+		       <div id="container"></div>
+	            <if condition="$tpage" >
+	            	<div id="pagediv" class="Card"><a href="javascipt:void()" id="page" class="QuestionMainAction" p="2">下一页</a></div>
+	            </if>
+	            
+	            <script>
+					$("#page").click(function(){
+						var p = $(this).attr("p");
+						params = {};
+					    params.pageNo = p;
+					    var url = '__GROUP__/Viewpoint/ajaxComment';
+					    $.post(url, params, function(d){
+				   			if(d.end){
+				      			$("#pagediv").hide();
+				      		}
+				 	   		$("#container").append(d.content);
+					   	}, 'json');
+						
+						ps = parseInt(p) + 1;
+						$(this).attr("p", ps);
+					});
+				
+				</script>
+            
+           </div>
+          </div>
+         </div>
+        </div>
+        
+        <include file="public_right" />
+        
+       </div>
+      </div>
+     </div>
+    </main>
+  <div>
+  </div>
+  <include file="Public:footer" />
+ </body>
+</html>

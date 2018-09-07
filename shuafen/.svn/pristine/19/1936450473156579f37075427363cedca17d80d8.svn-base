@@ -1,0 +1,203 @@
+      <include file="Public:header" />
+     <div class="Sticky--holder" style="position: relative; top: auto; right: auto; bottom: auto; left: auto; display: block; float: none; margin: 0px; height: 53px;"></div>
+    </div>
+    
+  <main role="main" class="App-main">
+   <div class="ProfileEdit">
+    <!-- react-empty: 1300 -->
+    <if condition="$Think.get.type eq 1">
+	    <div class="Card">
+	     <div class="ProfileHeader-main">
+	      <div class="ProfileHeader-content">
+	      		 <div class="Field">
+	      		 	<p>根据立言人的远见度计算，您需要向立言人支付{$_GET['price']}元</p>
+		            <h3 class="Field-label" style="margin-left:30px;margin-top:20px">支付方式：</h3>
+		            <div class="Field-content" style="margin-top:20px">
+		            <input value="3" type="radio" name="type">账户余额支付(￥{$user.money})<br>
+		            <input value="1" type="radio" name="type" checked="checked"><img src="__PUBLIC__/Home/image/alpay30.jpg"/>
+		            <input value="2" type="radio" name="type" ><img src="__PUBLIC__/Home/image/wxpay30.jpg"/>
+		            </div>
+		            
+		            <div class="Field-content"><div>
+		            <div class="HeadlineField-actions">
+		            <div class="ButtonGroup HeadlineField-buttonGroup">
+		            <button class="Button Button--primary Button--blue" onclick="zhifu()" type="button" style="background:#EF8023;border:1px #EF8023 solid">支付</button>
+		            <a class="Button" href="javascript:history.go(-1);" >取消</a></div>
+		            </div>
+		            </div></div>
+		         </div>
+		      </div>
+	     	</div>
+    	</div>
+    	<script>
+			//查询订单    		
+    		function queryOrder(){
+    			params = {};
+				params.vid = "{$Think.get.id}";
+			    var url = '__URL__/queryOrder';
+			    $.post(url, params, function(d){
+			      if(d.order == "1"){
+			    	  hideDiv();
+			    	  alert("支付成功");
+			    	  window.location.href="__GROUP__/Viewpoint/detail/id/{$Think.get.id}";
+			      }
+			    }, 'json');
+    		}
+    		function zhifu(){
+    			var type = $("input[type='radio']:checked").val();
+    			if(type == 1){
+    				//支付宝支付
+    				window.location.href="__GROUP__/Viewpoint/alipay/vid/{$Think.get.id}";
+    			}else if(type == 2){
+    				//微信支付
+    				showDiv();
+    				//查看订单
+    				var int = self.setInterval("queryOrder()",1000);
+    			}else if(type == 3){
+    				//余额支付
+    				params = {};
+    				params.vid = "{$Think.get.id}";
+    			    var url = '__URL__/balancepay';
+    			    $.post(url, params, function(d){
+    			      if(d.error == ""){
+    			    	  alert("支付成功");
+    			    	  window.location.href="__GROUP__/Viewpoint/detail/id/{$Think.get.id}";
+    			      }else{
+    			          alert(d.error);
+    			      }
+    			    }, 'json');
+    			}
+    		}
+    	</script>
+   	<else/>
+   		<div class="Card">
+	     <div class="ProfileHeader-main">
+	      <div class="ProfileHeader-content">
+	      		 <form id="form" action="" method="post" enctype="multipart/form-data" class="Field">
+		            <h3 class="Field-label" style="margin-left:30px">充值金额(元)：</h3>
+		            <div class="Field-content" >
+		            <div class="HeadlineField-input Input-wrapper">
+		            {$_GET['price']}
+                </div>
+		            </div>
+		            
+		            <h3 class="Field-label" style="margin-left:30px;margin-top:20px">支付方式：</h3>
+		            <div class="Field-content" style="margin-top:20px">
+		            <input value="1" type="radio" name="type" checked="checked"><img src="__PUBLIC__/Home/image/alpay30.jpg"/>
+		            <input value="2" type="radio" name="type" ><img src="__PUBLIC__/Home/image/wxpay30.jpg"/>
+		            </div>
+		            
+		            <div class="Field-content"><div>
+		            <div class="HeadlineField-actions">
+		            <div class="ButtonGroup HeadlineField-buttonGroup">
+		            <button class="Button Button--primary Button--blue" onclick="zhifu()" type="button" style="background:#EF8023;border:1px #EF8023 solid">支付</button>
+		            <a class="Button" href="__MODULE__/Index/index" >取消</a></div>
+		            </div>
+		            </div></div>
+		         </form>
+		      </div>
+	     	</div>
+    	</div>
+        
+        <input type="hidden" value="$_GET['type']" id="mytype">
+    	<input type="hidden" value="" id="weixinorder">
+        <input type="hidden" value="{$_GET['price']}" id="money">
+    	<script>
+    	
+	    	//查询订单    		
+			function queryOrder(){
+				params = {};
+				params.weixinorder = $('#weixinorder').val();
+			    var url = '__CONTROLLER__/queryOrder';
+			    $.post(url, params, function(d){
+			      if(d.order == "1"){
+			    	  hideDiv();
+			    	  alert("支付成功");
+			    	  window.location.href="__MODULE__/Me/first";
+			      }
+			    }, 'json');
+			}
+    		function zhifu(){
+    			var type = $("input[type='radio']:checked").val();
+    			if(type == 1){
+    				//支付宝支付
+    				var money = $.trim ( $('#money').val() );
+    				if(!money){
+    					alert("请输入金额");
+    					return false;
+    				}
+    				if(money <= 0){
+    					alert("输入金额需要大于0");
+    					return false;
+    				}
+                    mytype = $('#mytype').val();
+                    if(mytype==1){
+                        window.location.href="__MODULE__/Zhifu/toPay/money/" + money;
+                    }else{
+                        window.location.href="__MODULE__/Zhifu/firstPay/money/" + money;
+                    }
+    				
+    			}else if(type == 2){
+    				//微信支付
+    				var money = $.trim ( $('#money').val() );
+    				if(!money){
+    					alert("请输入金额");
+    					return false;
+    				}
+    				if(money <= 0){
+    					alert("输入金额需要大于0");
+    					return false;
+    				}
+    				params = {};
+    				params.price = money;
+                    mytype = $('#mytype').val();
+                    if(mytype==1){
+                        var url = '__CONTROLLER__/wxpay';
+                    }else{
+                         var url = '__CONTROLLER__/firstWxpay';
+                    }
+    			    
+    			    $.post(url,params,function(d){
+    			    	$("#wxpay").attr("src",d.link);
+                        $('#weixinorder').attr('value',d.weixinorder);
+    			    	if(url){
+    			    		showDiv();
+        			    	//查看订单
+            				var int = self.setInterval("queryOrder()",1000);
+    			    	}else{
+    			    		alert("网络错误");
+    			    		window.location.reload();
+    			    	}
+    			    }, 'json');
+    			}
+    		}
+    	</script>
+   	</if>
+   </div>
+  </main>
+  <include file="Public:footer" />
+ </body>
+</html>
+
+ <!-- 提现弹出框 -->
+        <div class="Modal-wrapper" id="txDiv" style="display:none">
+  <div class="Modal-backdrop"></div>
+  <div class="Modal Modal--large QuestionAsk-Modal" tabindex="0">
+  <div class="Modal-inner">
+  <h3 class="Modal-title">微信扫码支付</h3>
+ 
+  <div class="Modal-content">
+		<!-- 微信二维码 -->
+		<center><img id="wxpay" alt="微信扫码支付" src="http://paysdk.weixin.qq.com/example/qrcode.php?data=<?php echo urlencode($url);?>" style="width:150px;height:150px;"/></center>
+  <div class="QuestionAsk">
+  </div></div></div>
+  <button class="Button Modal-closeButton Button--plain" type="button" onclick="hideDiv()"><svg viewBox="0 0 14 14" class="Icon Modal-closeIcon Icon--remove" width="16" height="16" aria-hidden="true" style="height: 16px; width: 16px;"><title></title><g><path d="M8.486 7l5.208-5.207c.408-.408.405-1.072-.006-1.483-.413-.413-1.074-.413-1.482-.005L7 5.515 1.793.304C1.385-.103.72-.1.31.31-.103.724-.103 1.385.305 1.793L5.515 7l-5.21 5.207c-.407.408-.404 1.072.007 1.483.413.413 1.074.413 1.482.005L7 8.485l5.207 5.21c.408.407 1.072.404 1.483-.007.413-.413.413-1.074.005-1.482L8.485 7z"></path></g></svg></button></div></div>
+<script>
+function showDiv(){
+	$("#txDiv").show();
+}
+	
+function hideDiv(){
+	$("#txDiv").hide();
+}
+</script>

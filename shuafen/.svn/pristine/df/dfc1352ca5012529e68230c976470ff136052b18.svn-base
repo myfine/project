@@ -1,0 +1,195 @@
+      <include file="Public:header" />
+     <div class="Sticky--holder" style="position: relative; top: auto; right: auto; bottom: auto; left: auto; display: block; float: none; margin: 0px; height: 53px;"></div>
+    <main role="main" class="App-main">
+     <div>
+      <div>
+      <include file="public_header" />
+       <div class="Profile-main">
+        <div class="Profile-mainColumn">
+         <div class="Card ProfileMain" id="ProfileMain">
+         <ul role="tablist" class="Tabs ProfileMain-tabs">
+			   <li role="tab" class="Tabs-item" aria-controls="Profile-answers"><a class="Tabs-link" href="__URL__/personal">
+			    		我的立言<span class="Tabs-meta"><if condition="$myliyancount">{$myliyancount}</if></span></a></li>
+			  <li role="tab" class="Tabs-item" aria-controls="Profile-asks"><a class="Tabs-link" href="__URL__/comment">
+			    		我的评论<span class="Tabs-meta"><if condition="$mycommentcount">{$mycommentcount}</if></span></a></li>
+			  <li role="tab" class="Tabs-item" aria-controls="Profile-asks"><a class="Tabs-link" href="__URL__/gzliyan/type/1">
+			    		关注的立言<span class="Tabs-meta"><if condition="$gzcount">{$gzcount}</if></span></a></li>
+			  <li role="tab" class="Tabs-item" aria-controls="Profile-asks"><a class="Tabs-link" href="__URL__/friends/type/1">
+			    		我的好友</a></li>
+			  <li role="tab" class="Tabs-item" aria-controls="Profile-asks"><a class="Tabs-link" href="__URL__/ziliao/type/1">
+			    		资料</a></li>
+			  <li role="tab" class="Tabs-item" aria-controls="Profile-asks"><a class="Tabs-link is-active" href="__URL__/tsjy/type/1">
+			    		建议维权</a></li>
+			 </ul>
+          
+          <div style="padding:15px">
+          		<if condition="$Think.get.type eq 1">
+          			<div class="Tag QuestionTopic" data-za-module="TopicItem" style="color:white;background:#6F85C7"><a href="__URL__/tsjy/type/1">建议</a></div>&nbsp&nbsp
+	          		<div class="Tag QuestionTopic" data-za-module="TopicItem"><a href="__URL__/tsjy/type/2">维权</a></div>&nbsp&nbsp
+	          	<else />
+	          		<div class="Tag QuestionTopic" data-za-module="TopicItem"><a href="__URL__/tsjy/type/1">建议</a></div>&nbsp&nbsp
+	          		<div class="Tag QuestionTopic" data-za-module="TopicItem" style="color:white;background:#6F85C7"><a href="__URL__/tsjy/type/2">维权</a></div>&nbsp&nbsp
+          		</if>
+	      </div>
+          
+          <div class="List Profile-answers" id="Profile-answers">
+           <div>
+           
+           <if condition="$Think.get.type eq 1">
+           		<form id="form" method="post" action="__URL__/suggest" class="Field" style="border-bottom:1px solid #e7e7e7;border-top:1px solid #e7e7e7">
+			            <textarea id="content" style="margin-left:20px" name="content" row="3" value="" class="DescriptionField-input TextArea" placeholder="请输入您的建议"></textarea>
+			            <div style="margin-left:20px">
+			            <div class="HeadlineField-actions">
+			            <div class="ButtonGroup HeadlineField-buttonGroup">
+			            <button class="Button Button--primary Button--blue" onclick="suggest()" type="submit" style="background:#EF8023;border:1px #EF8023 solid">提交</button>
+			            </div>
+			            <span class="MaxLength"></span></div>
+			            </div>
+	              </form>
+	              
+	               <script>
+	            var loading=0;
+	        	
+	        	function suggest(){
+	        	  if(loading){
+	        	    return false;
+	        	  }
+	        	  loading=1;
+	        	   $('#form').ajaxForm({
+	        	        beforeSubmit:  checkForm,// pre-submit callback
+	        	        success:       complete,// post-submit callback
+	        	        dataType: 'json'
+	        	   });
+	        	   
+	        	    function checkForm(){
+	        	    	 if(!$.trim ( $("#content").val() )){
+	        	 	        alert('请填写内容');
+	        	 	        return false;
+	        	 	     }  
+	        	    	 
+	        	    }
+	        	    
+	        	    function complete(d){
+	        	        if (!d.error){
+	        	        	alert("提交成功");
+	        	        	window.location.reload();
+	        	        }else{
+	        	        	alert(d.error);
+	        	        	loading=0;
+	        	        }
+	        	    }
+	        	}
+	            </script>
+	              
+           		<div class="List Profile-answers" id="Profile-answers">
+		           <div>
+		            	<include file="Public:tsjy_item" />
+		           </div>
+		          </div>
+		          <div id="container"></div>
+	            <if condition="$tpage" >
+	            	<div id="pagediv" class="Card"><a href="javascipt:void()" id="page" class="QuestionMainAction" p="2">下一页</a></div>
+	            </if>
+	            
+	            <script>
+					$("#page").click(function(){
+						var p = $(this).attr("p");
+						params = {};
+					    params.pageNo = p;
+					    var url = '__URL__/ajaxSuggestion';
+					    $.post(url, params, function(d){
+				   			if(d.end){
+				      			$("#pagediv").hide();
+				      		}
+				 	   		$("#container").append(d.content);
+					   	}, 'json');
+						
+						ps = parseInt(p) + 1;
+						$(this).attr("p", ps);
+					});
+				
+				</script>
+	        <else/>
+	        	<!-- 维权-->
+	            <form id="form" class="Field" action="__URL__/weiquanHandle" method="post">
+	            
+	            <div class="Field-content" ></div>
+	            <h3 class="Field-label" style="margin-left:30px;margin-top:20px">选择立言：</h3>
+	            <div class="Field-content" style="margin-top:20px">
+	            <div class="HeadlineField-input Input-wrapper">
+	            <select name="vid" class="Input">
+	            	<volist name="list" id="list">
+	            		<option name="{$list.id}">{$list.title}</option>
+	            	</volist>
+	            </select></div>
+	            </div>
+	            
+	            <h3 class="Field-label" style="margin-left:30px;margin-top:20px">外链：</h3>
+	            <div class="Field-content" style="margin-top:20px">
+	            <div class="HeadlineField-input Input-wrapper">
+	            <input name="url" value="" class="Input" placeholder="外部抄袭内容的网址链接，或说明如何查看外部抄袭内容"></div>
+	            </div>
+	            
+	            <h3 class="Field-label" style="margin-left:30px;margin-top:20px">说明：</h3>
+	            <div class="Field-content" style="margin-top:20px">
+	            <textarea id="content" name="content" row="3" value="" class="DescriptionField-input TextArea" placeholder="说明被抄袭情况"></textarea></div>
+	            
+	            <div class="Field-content"><div>
+	            <div class="HeadlineField-actions">
+	            <div class="ButtonGroup HeadlineField-buttonGroup">
+	            <button class="Button Button--primary Button--blue" onclick="saveWenquan()" type="submit" style="background:#EF8023;border:1px #EF8023 solid">提交</button>
+	            </div>
+	            <span class="MaxLength"></span></div>
+	            </div></div>
+	            </form>
+	            
+	            <script>
+	            var loading=0;
+	        	
+	        	function saveWenquan(){
+	        	  if(loading){
+	        	    return false;
+	        	  }
+	        	  loading=1;
+	        	   $('#form').ajaxForm({
+	        	        beforeSubmit:  checkForm,// pre-submit callback
+	        	        success:       complete,// post-submit callback
+	        	        dataType: 'json'
+	        	   });
+	        	   
+	        	    function checkForm(){
+	        	    	 if(!$.trim ( $("#content").val() )){
+	        	 	        alert('请填写内容');
+	        	 	        return false;
+	        	 	     }  
+	        	    	 
+	        	    }
+	        	    
+	        	    function complete(d){
+	        	        if (!d.error){
+	        	        	alert("提交成功");
+	        	        	window.location.reload();
+	        	        }else{
+	        	        	alert(d.error);
+	        	        	loading=0;
+	        	        }
+	        	    }
+	        	}
+	            </script>
+	        </if>
+            
+            
+           </div>
+          </div>
+         </div>
+        </div>
+         <include file="public_right" />
+       </div>
+      </div>
+     </div>
+    </main>
+  <div>
+  </div>
+  <include file="Public:footer" />
+ </body>
+</html>

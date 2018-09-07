@@ -1,0 +1,399 @@
+<include file="Public:header" />
+     <div class="Sticky--holder" style="position: relative; top: auto; right: auto; bottom: auto; left: auto; display: block; float: none; margin: 0px; height: 53px;"></div>
+    </div>
+    <main role="main" class="App-main">
+     <div>
+      <div>
+       <div class="QuestionStatus">
+       </div>
+       <div class="QuestionHeader">
+        <div class="QuestionHeader-content">
+         <div class="QuestionHeader-main">
+          <div class="QuestionHeader-topics">
+          </div>
+          <h1 class="QuestionHeader-title">{$vp.title}</h1>
+          <div class="QuestionHeader-detail"><div class="QuestionRichText QuestionRichText--collapsed"><div><span></span></div></div></div>
+         </div>
+        </div>
+        
+        <div class="QuestionHeader-footer">
+         <div class="QuestionHeader-footer-inner">
+          <div class="QuestionHeader-main QuestionHeader-footer-main">
+           <div class="QuestionHeaderActions">
+            <div class="Popover ShareMenu">
+             <div id="Popover-69482-96360-toggle" aria-haspopup="true" aria-expanded="false" aria-owns="Popover-69482-96360-content">
+              <button class="Button Button--plain" type="button">分享</button>
+             </div>
+            </div>
+            <button class="Button Button--plain" type="button" onclick="showDiv()">举报</button>
+           </div>
+           <div class="QuestionHeader-actions"></div>
+          </div>
+         </div>
+        </div>
+       </div>
+      </div>
+      <div class="Question-main">
+       <div class="Question-mainColumn">
+        <div>
+         <div class="QuestionAnswers-answers">
+          <div class="Card">
+           <div class="List">
+            <div>
+             <div class="List-item">
+              <div class="ContentItem AnswerItem">
+               <div class="ContentItem-meta">
+                <div class="AnswerItem-meta AnswerItem-meta--related">
+                 <div class="AuthorInfo">
+                  <span class="UserLink AuthorInfo-avatarWrapper">
+                   <div class="Popover">
+                    <div>
+                     <a class="UserLink-link" href="__GROUP__/Viewpoint/personal/uid/{$vp.user_id}"><img class="Avatar AuthorInfo-avatar" width="38" height="38" src="{$vp.avatar}" /></a>
+                    </div>
+                   </div></span>
+                  <div class="AuthorInfo-content">
+                   <div class="AuthorInfo-head">
+                    <span class="UserLink AuthorInfo-name">
+                     <div class="Popover">
+                      <div>
+                       <a class="UserLink-link" href="__GROUP__/Viewpoint/personal/uid/{$vp.user_id}">{$vp.nickname}</a>
+                      </div>
+                     </div></span>
+                   </div>
+                   <div class="AuthorInfo-detail">
+                    <div class="RichText AuthorInfo-badge">{$vp.beizhuming}</div>
+                   </div>
+                  </div>
+                 </div>
+                </div>
+               </div>
+               <div class="ContentItem-time">
+                 <span>主题分类</span>
+                </div>
+                <div class="ContentItem-time" style="color:#000000">
+                 <span>{$vp.categoryDetail}</span>
+                </div>
+               <div class="ContentItem-time">
+                 <span>创建时间</span>
+                </div>
+                <div class="ContentItem-time" style="color:#000000">
+                 <span>{$vp.cdate}</span>
+                </div>
+                <div class="ContentItem-time">
+                 <span>验证时间</span>
+                </div>
+                <div class="ContentItem-time" style="color:#000000">
+                 <span>{$vp.yz_time}</span>
+                </div>
+                <div class="ContentItem-time">
+                 <span>理由</span>
+                </div>
+               <div class="RichContent RichContent--unescapable">
+                <div class="RichContent-inner">
+                	<if condition="$vp['liyan']">
+	                 	<volist name="vp.liyan" id="list">
+	                 		<p>{$list.content}</p>
+	                 	</volist>
+	                <else/>
+		                <div class="ContentItem-time">
+		                	<div class="QuestionButtonGroup">
+				            <a href="__GROUP__/Viewpoint/pay/type/1" class="Button Button--primary Button--blue" type="button" style="background:#EF8023;border:1px #EF8023 solid;width:300px">查看需要支付{$vp.amount}元</a>
+				           </div>
+				        </div>
+	                </if>
+                </div>
+                
+                <div>
+                 <div class="ContentItem-actions Sticky is-fixed is-bottom" style="width: 692px; bottom: 0px; left: 332.5px;">
+                 	<if condition="$Think.get.tab eq 1">
+                 		  <button class="Button ContentItem-action Button--plain" type="button" onclick="toupiao(1)">认同<if condition="$vp['agree']">({$vp.agree})</if></button>
+		                  <button class="Button ContentItem-action Button--plain" type="button" onclick="toupiao(2)">异议<if condition="$vp['disagree']">({$vp.disagree})</if></button>
+		                  <button class="Button ContentItem-action Button--plain" type="button" onclick="toupiao(3)">无聊<if condition="$vp['boring']">({$vp.boring})</if></button>
+		                  <button class="Button ContentItem-action Button--plain" type="button" style="color:#EF8023" onclick="showSsDiv()">申诉</button>
+                  	<else />
+                  		  <button class="Button ContentItem-action Button--plain" type="button">认同<if condition="$vp['agree']">({$vp.agree})</if></button>
+		                  <button class="Button ContentItem-action Button--plain" type="button">异议<if condition="$vp['disagree']">({$vp.disagree})</if></button>
+		                  <button class="Button ContentItem-action Button--plain" type="button">无聊<if condition="$vp['boring']">({$vp.boring})</if></button>
+		                  <button class="Button ContentItem-action Button--plain" type="button">正确<if condition="$vp['right']">({$vp.right})</if></button>
+                  		  <button class="Button ContentItem-action Button--plain" type="button">错误<if condition="$vp['wrong']">({$vp.wrong})</if></button>
+                  		  <button class="Button ContentItem-action Button--plain" type="button">未知<if condition="$vp['unknow']">({$vp.unknow})</if></button>
+                  		  <button class="Button ContentItem-action Button--plain" type="button" style="color:#EF8023" onclick="showSsDiv()">申诉</button>
+                 	</if>
+                 </div>
+                 <div class="Sticky--holder" style="position: static; top: auto; right: auto; bottom: auto; left: auto; display: flex; float: none; margin: 4px -20px -8px; height: 52px; width: 692px;"></div>
+                </div>
+               </div>
+              </div>
+             </div>
+            </div>
+           </div>
+          </div>
+         </div>
+        </div>
+       </div>
+       <div class="Question-sideColumn Question-sideColumn--sticky">
+        <div>
+         <div class="Sticky">
+          <div class="Card" >
+           <div class="Card-header SimilarQuestions-title">
+            <div class="Card-headerText">
+             评论
+            </div>
+           </div>
+           
+           <volist name="comment" id="comment">
+	           <div class="Card-section SimilarQuestions-list">
+	            <div class="SimilarQuestions-item" >
+	            	<table style="width:100%"><tr style="cursor:pointer" onclick="at('{$comment.userId}','{$comment.nickname}')">
+	            			<td width="40" ><img src="{$comment.avatar}" width="30" height="30" /></td>
+	            			<td >{$comment.nickname}</td>
+	            			<td align="right">{$comment.ctime}</td>
+	            		<tr></table>
+	             {$comment.content}
+	            </div>
+	           </div>
+	       </volist>
+           <div id="container"></div>
+           <if condition="$tpage" >
+            	<div id="pagediv" class="Card"><a id="page" class="QuestionMainAction" p="2">下一页</a></div>
+           </if>
+            <form id="form" action="__GROUP__/Viewpoint/addComment" method="post" enctype="multipart/form-data" class="Field">
+            	<input type="hidden" name="vid" value="{$Think.get.id}" />
+            	<input type="hidden" id="auserId" name="auserId" value="" />
+          		<div style="text-align:center">
+          		<textarea id="content" name="content" rows="2" class="TextArea" style="width:80%;"></textarea></div>
+	            <div class="ButtonGroup HeadlineField-buttonGroup" style="margin-left:30px">
+	            	<button class="Button Button--primary Button--blue" type="submit" onclick="comment()" style="background:#EF8023;border:1px #EF8023 solid;marign:0px">发布评论</button>
+	            </div>
+            </form>
+          </div>
+         </div>
+        </div>
+       </div>
+      </div>
+     </div>
+    </main>
+   </div>
+  </div>
+  <div>
+  </div>
+  <div>
+  </div>
+  <include file="Public:footer" />
+ </body>
+</html>
+
+<!-- 举报弹出框 -->
+  <div class="Modal-wrapper" id="jubaoDiv" style="display:none">
+  <div class="Modal-backdrop"></div>
+  <div class="Modal Modal--large QuestionAsk-Modal" tabindex="0">
+  <div class="Modal-inner">
+  <h3 class="Modal-title">举报该立言</h3>
+  <form id="jubaoform" action="__GROUP__/Viewpoint/report" method="post">
+  <input type="hidden" name="vid" value="{$Think.get.id}" />
+  <div class="Modal-content">
+  	<div class="QuestionAsk-section">
+  	举报类型：<input type="radio" name="type" value="1" checked="checked" />抄袭<input type="radio" name="type" value="2" />其他</div>
+  	
+  	<div class="QuestionAsk-section">
+  	<div class="QuestionAsk-title Input-wrapper Input-wrapper--spread Input-wrapper--multiline Input-wrapper--large">
+  	<textarea required="" name="content" rows="2" class="Input" placeholder="请输入举报内容"></textarea></div></div>
+	
+  <div class="QuestionAsk">
+  <div class="QuestionAsk-buttonGroup">
+  <button class="Button Button--primary Button--blue" type="submit" onclick="jubao()" style="background:#EF8023;border:1px #EF8023 solid">举报</button></div>
+  </div></div></form></div>
+  <button class="Button Modal-closeButton Button--plain" type="button" onclick="hideDiv()"><svg viewBox="0 0 14 14" class="Icon Modal-closeIcon Icon--remove" width="16" height="16" aria-hidden="true" style="height: 16px; width: 16px;"><title></title><g><path d="M8.486 7l5.208-5.207c.408-.408.405-1.072-.006-1.483-.413-.413-1.074-.413-1.482-.005L7 5.515 1.793.304C1.385-.103.72-.1.31.31-.103.724-.103 1.385.305 1.793L5.515 7l-5.21 5.207c-.407.408-.404 1.072.007 1.483.413.413 1.074.413 1.482.005L7 8.485l5.207 5.21c.408.407 1.072.404 1.483-.007.413-.413.413-1.074.005-1.482L8.485 7z"></path></g></svg></button></div></div>
+
+
+<!-- 申诉弹出框 -->
+  <div class="Modal-wrapper" id="shensuDiv" style="display:none">
+  <div class="Modal-backdrop"></div>
+  <div class="Modal Modal--large QuestionAsk-Modal" tabindex="0">
+  <div class="Modal-inner">
+  <h3 class="Modal-title">申诉</h3>
+  <form id="ssform" action="__GROUP__/Me/appeal" method="post">
+  <input type="hidden" name="vid" value="{$Think.get.id}" />
+  <div class="Modal-content">
+  	
+  	<div class="QuestionAsk-section">
+  	<div class="QuestionAsk-title Input-wrapper Input-wrapper--spread Input-wrapper--multiline Input-wrapper--large">
+  	<textarea required="" name="content" rows="2" class="Input" placeholder="请输入申诉内容"></textarea></div></div>
+	
+  <div class="QuestionAsk">
+  <div class="QuestionAsk-buttonGroup">
+  <button class="Button Button--primary Button--blue" type="submit" onclick="shensu()" style="background:#EF8023;border:1px #EF8023 solid">申诉</button></div>
+  </div></div></form></div>
+  <button class="Button Modal-closeButton Button--plain" type="button" onclick="hideSsDiv()"><svg viewBox="0 0 14 14" class="Icon Modal-closeIcon Icon--remove" width="16" height="16" aria-hidden="true" style="height: 16px; width: 16px;"><title></title><g><path d="M8.486 7l5.208-5.207c.408-.408.405-1.072-.006-1.483-.413-.413-1.074-.413-1.482-.005L7 5.515 1.793.304C1.385-.103.72-.1.31.31-.103.724-.103 1.385.305 1.793L5.515 7l-5.21 5.207c-.407.408-.404 1.072.007 1.483.413.413 1.074.413 1.482.005L7 8.485l5.207 5.21c.408.407 1.072.404 1.483-.007.413-.413.413-1.074.005-1.482L8.485 7z"></path></g></svg></button></div></div>
+<script>
+function showDiv(){
+	$("#jubaoDiv").show();
+}
+	
+function hideDiv(){
+	$("#jubaoDiv").hide();
+}
+
+function showSsDiv(){
+	$("#shensuDiv").show();
+}
+	
+function hideSsDiv(){
+	$("#shensuDiv").hide();
+}
+	
+$("#page").click(function(){
+	var p = $(this).attr("p");
+	params = {};
+    params.pageNo = p;
+    params.vid = "{$_GET['id']}";
+    var url = '__GROUP__/Viewpoint/ajaxcomment';
+    $.post(url, params, function(d){
+   		if(d.list){
+   			if(d.end){
+   				$("#pagediv").hide();
+   			}
+			$.each(d.list, function(n, v) {
+	  				var html = '<div class="Card-section SimilarQuestions-list"><div class="SimilarQuestions-item" >'
+	           	   + '<table style="width:100%"><tr style="cursor:pointer" onclick="at(' 
+	               + "'" + v.userId + "','" + v.nickname + "')" 
+	               + '"><td width="40" ><img src="' + v.avatar + '" width="30" height="30" /></td>'
+	               + '<td >' + v.content + '</td>'
+	               + '<td align="right">' + v.ctime + '</td><tr></table>'
+	               + v.content + '</div></div>';
+	  		  		$("#container").append(html);
+	  		});
+   				
+   		}
+   	}, 'json');
+	
+	ps = parseInt(p) + 1;
+	$(this).attr("p", ps);
+});
+
+function at(userId,name){
+	if(userId != "{$userId}"){
+		$("#content").val("@" + name);
+		$("#auserId").val(userId);
+	}
+}
+
+function toupiao(tp){
+	params = {};
+	params.vid = "{$vp.id}";
+    params.operation = tp;
+    var url = '__GROUP__/Viewpoint/operation';
+    $.post(url, params, function(d){
+      if(d.error == ""){
+          window.location.reload();
+      }else{
+        alert(d.error);
+      }
+    }, 'json');
+}
+
+var loading=0;
+function comment(){
+	  if(loading){
+	    return false;
+	  }
+	  loading=1;
+	   $('#form').ajaxForm({
+	        beforeSubmit:  checkForm,// pre-submit callback
+	        success:       complete,// post-submit callback
+	        dataType: 'json'
+	   });
+	   
+	    function checkForm(){
+	   	  	if(!$.trim ( $("#content").val() )){
+      			alert('请输入内容');
+       			return false;
+      		} 
+	    }
+	    
+	    function complete(d){
+	      console.log(d);
+	        if (!d.error){
+	          window.location.reload();
+	        }else{
+	          alert(d.error);
+	          loading=0;
+	        }
+	    }
+}
+
+
+var loading1=0;
+function jubao(){
+	  if(loading1){
+	    return false;
+	  }
+	  loading1=1;
+	   $('#jubaoform').ajaxForm({
+	        beforeSubmit:  checkForm,// pre-submit callback
+	        success:       complete,// post-submit callback
+	        dataType: 'json'
+	   });
+	   
+	    function checkForm(){
+	    }
+	    
+	    function complete(d){
+	      console.log(d);
+	        if (!d.error){
+	        	alert("提交成功，我们会尽快处理");
+	        	hideDiv();
+	        }else{
+	          	alert(d.error);
+	          	loading1=0;
+	        }
+	    }
+}
+	
+	  $(".guanzhu").click(function() {
+	      params = {};
+	      params.followId = "{$vp.user_id}";
+	      var url = '__GROUP__/Viewpoint/follow';
+	      $.post(url, params, function(d){
+		      if(d.error == ""){
+		            window.location.reload();
+		      }else{
+		            alert(d.error);
+		      }
+	      }, 'json');
+	  });
+	  
+	  
+ var loading2=0;
+ function shensu(){
+ 	  if(loading2){
+ 	    return false;
+ 	  }
+ 	  loading1=1;
+ 	   $('#ssform').ajaxForm({
+ 	        beforeSubmit:  checkForm,// pre-submit callback
+ 	        success:       complete,// post-submit callback
+ 	        dataType: 'json'
+ 	   });
+ 	   
+ 	    function checkForm(){
+ 	    }
+ 	    
+ 	    function complete(d){
+ 	        if (!d.error){
+ 	        	alert("提交成功，我们会尽快处理");
+ 	        	hideSsDiv();
+ 	        }else{
+ 	          	alert(d.error);
+ 	          	loading2=0;
+ 	        }
+ 	    }
+ }
+ 
+ $(function(){
+	  var wd = $(window).width();
+	  var lf = (wd - 1000) / 2;
+	  $(".ContentItem-actions").css("left", lf + "px");
+ });
+ 	
+</script>

@@ -1,0 +1,312 @@
+      <include file="Public:header" />
+     <div class="Sticky--holder" style="position: relative; top: auto; right: auto; bottom: auto; left: auto; display: block; float: none; margin: 0px; height: 53px;"></div>
+    <main role="main" class="App-main">
+     <div>
+      <div>
+      <include file="public_header" />
+       <div class="Profile-main">
+        <div class="Profile-mainColumn">
+         <div class="Card ProfileMain" id="ProfileMain">
+         <ul role="tablist" class="Tabs ProfileMain-tabs">
+			   <li role="tab" class="Tabs-item" aria-controls="Profile-answers"><a class="Tabs-link" href="__URL__/personal">
+			    		我的立言<span class="Tabs-meta"><if condition="$myliyancount">{$myliyancount}</if></span></a></li>
+			  <li role="tab" class="Tabs-item" aria-controls="Profile-asks"><a class="Tabs-link" href="__URL__/comment">
+			    		我的评论<span class="Tabs-meta"><if condition="$mycommentcount">{$mycommentcount}</if></span></a></li>
+			  <li role="tab" class="Tabs-item" aria-controls="Profile-asks"><a class="Tabs-link" href="__URL__/gzliyan/type/1">
+			    		关注的立言<span class="Tabs-meta"><if condition="$gzcount">{$gzcount}</if></span></a></li>
+			  <li role="tab" class="Tabs-item" aria-controls="Profile-asks"><a class="Tabs-link" href="__URL__/friends/type/1">
+			    		我的好友</a></li>
+			  <li role="tab" class="Tabs-item" aria-controls="Profile-asks"><a class="Tabs-link is-active" href="__URL__/ziliao/type/1">
+			    		资料</a></li>
+			  <li role="tab" class="Tabs-item" aria-controls="Profile-asks"><a class="Tabs-link" href="__URL__/tsjy/type/1">
+			    		建议维权</a></li>
+			 </ul>
+          
+          <div style="padding:15px">
+          		<if condition="$Think.get.type eq 1 or $Think.get.type eq ''">
+          			<div class="Tag QuestionTopic" data-za-module="TopicItem" style="color:white;background:#6F85C7"><a href="__URL__/ziliao/type/1">基本信息</a></div>&nbsp&nbsp
+	          		<div class="Tag QuestionTopic" data-za-module="TopicItem"><a href="__URL__/ziliao/type/2">认证信息</a></div>&nbsp&nbsp
+	          		<div class="Tag QuestionTopic" data-za-module="TopicItem"><a href="__URL__/ziliao/type/3">设置</a></div>
+	          	<elseif condition="$Think.get.type eq 2" />
+	          		<div class="Tag QuestionTopic" data-za-module="TopicItem"><a href="__URL__/ziliao/type/1">基本信息</a></div>&nbsp&nbsp
+	          		<div class="Tag QuestionTopic" data-za-module="TopicItem" style="color:white;background:#6F85C7"><a href="__URL__/ziliao/type/2">认证信息</a></div>&nbsp&nbsp
+	          		<div class="Tag QuestionTopic" data-za-module="TopicItem"><a href="__URL__/ziliao/type/3">设置</a></div>
+          		<else />
+          			<div class="Tag QuestionTopic" data-za-module="TopicItem"><a href="__URL__/ziliao/type/1">基本信息</a></div>&nbsp&nbsp
+	          		<div class="Tag QuestionTopic" data-za-module="TopicItem"><a href="__URL__/ziliao/type/2">认证信息</a></div>&nbsp&nbsp
+	          		<div class="Tag QuestionTopic" data-za-module="TopicItem" style="color:white;background:#6F85C7"><a href="__URL__/ziliao/type/3">设置</a></div>
+          		</if>
+	      </div>
+          
+          <div class="List Profile-answers" id="Profile-answers">
+           <div>
+           
+           <if condition="$Think.get.type eq 1  or $Think.get.type eq ''">
+           		<!-- 基本资料 -->
+	            <form id="form" class="Field" action="__URL__/saveMyInfo" method="post">
+	            <h3 class="Field-label" style="margin-left:30px"><font color="red">*&nbsp</font>昵称：</h3>
+	            <div class="Field-content" >
+	            <div class="HeadlineField-input Input-wrapper">
+	            <input name="nickname" value="{$user.nickname}" class="Input"></div>
+	            </div>
+	            
+	            <h3 class="Field-label" style="margin-left:30px;margin-top:20px"><font>&nbsp&nbsp</font>描述：</h3>
+	            <div class="Field-content" style="margin-top:20px">
+	            <div class="HeadlineField-input Input-wrapper">
+	            <input name="miaoshu" value="{$user.miaoshu}" class="Input"></div>
+	            </div>
+	            
+	             <h3 class="Field-label" style="margin-left:30px;margin-top:20px"><font color="red">*&nbsp</font>性别：</h3>
+	            <div class="Field-content" style="margin-top:20px">
+	            <if condition="$user['gender'] eq '男'">
+	            	<input value="男" type="radio" name="gender" checked="checked">男
+	           		<input value="女" type="radio" name="gender" >女
+	            <else/>
+	            	<input value="男" type="radio" name="gender">男
+	            	<input value="女" type="radio" name="gender" checked="checked">女
+	            </if>
+	            </div>
+	            
+	            <h3 class="Field-label" style="margin-left:30px;margin-top:20px"><font color="red">*&nbsp</font>年龄：</h3>
+	            <div class="Field-content" style="margin-top:20px">
+	            <div class="HeadlineField-input Input-wrapper">
+	            <select name="age" class="Input">
+	            	<if condition="$user['age']">
+	            		<option value="{$user.age}">{$user.age}</option>
+	            	</if>
+	            	<volist name="year" id="year">
+	            		<option value="{$year.name}">{$year.name}</option>
+	            	</volist>
+	            </select></div>
+	            </div>
+	            
+	            <h3 class="Field-label" style="margin-left:30px;margin-top:20px"><font>&nbsp&nbsp</font>邮箱：</h3>
+	            <div class="Field-content" style="margin-top:20px">
+	            <div class="HeadlineField-input Input-wrapper">
+	            <input name="email" value="{$user.email}" class="Input"></div>
+	            </div>
+	            
+	            
+	            <div class="Field-content"><div>
+	            <div class="HeadlineField-actions">
+	            <div class="ButtonGroup HeadlineField-buttonGroup">
+	            <button class="Button Button--primary Button--blue" onclick="savemyinfo()" type="submit" style="background:#EF8023;border:1px #EF8023 solid">保存</button>
+	            </div>
+	            <span class="MaxLength"></span></div>
+	            </div></div>
+	            </form>
+	            
+	            <script>
+	            var loading=0;
+	        	
+	        	function savemyinfo(){
+	        	  if(loading){
+	        	    return false;
+	        	  }
+	        	  loading=1;
+	        	   $('#form').ajaxForm({
+	        	        beforeSubmit:  checkForm,// pre-submit callback
+	        	        success:       complete,// post-submit callback
+	        	        dataType: 'json'
+	        	   });
+	        	   
+	        	    function checkForm(){
+	        	    	 if(!$.trim ( $("input[name='nickname']").val() )){
+	        	 	        alert('请填写昵称');
+	        	 	        return false;
+	        	 	     }  
+	        	    	 
+	        	    	 if(!$.trim ( $("input[name='gender']").val() )){
+	        	 	        alert('请填写性别');
+	        	 	        return false;
+	        	 	     }
+	        	    	 
+	        	    }
+	        	    
+	        	    function complete(d){
+	        	      console.log(d);
+	        	        if (!d.error){
+	        	        	alert("保存成功");
+	        	          	window.location.reload();
+	        	        }else{
+	        	          	alert(d.error);
+	        	          	loading=0;
+	        	        }
+	        	    }
+	        	}
+	            </script>
+	        <elseif condition="$Think.get.type eq 2"/>
+	        	<!-- 认证信息 -->
+	        	<h2 style="padding-left:25px">完善认证信息，将有效增加您的远见度</h2>
+	            <form id="form" class="Field" action="__URL__/saveMyRenzheng" method="post" >
+	            <h3 class="Field-label" style="margin-left:30px"><font color="red">*&nbsp</font>真实姓名：</h3>
+	            <div class="Field-content" >
+	            <div class="HeadlineField-input Input-wrapper">
+	            <input value="{$user.realname}" class="Input" name="realname"></div>
+	            </div>
+	            
+	            <h3 class="Field-label" style="margin-left:30px;margin-top:20px"><font color="red">*&nbsp</font>身份证号：</h3>
+	            <div class="Field-content" style="margin-top:20px">
+	            <div class="HeadlineField-input Input-wrapper">
+	            <input value="{$user.idcard}" class="Input" name="idcard"></div>
+	            </div>
+	            
+	            <div style="border:1px solid #f0f2f7;margin-top:40px">
+	            </div>
+	            
+	            <h3 class="Field-label" style="margin-left:30px;margin-top:20px">学校：</h3>
+	            <div class="Field-content" style="margin-top:20px">
+	            <div class="HeadlineField-input Input-wrapper">
+	            <input value="{$user.school}" class="Input" name="school"></div>
+	            </div>
+	            
+	            <h3 class="Field-label" style="margin-left:30px;margin-top:20px">专业：</h3>
+	            <div class="Field-content" style="margin-top:20px">
+	            <div class="HeadlineField-input Input-wrapper">
+	            <input value="{$user.major}" class="Input" name="major"></div>
+	            </div>
+	            
+	            <h3 class="Field-label" style="margin-left:30px;margin-top:20px">学历：</h3>
+	            <div class="Field-content" style="margin-top:20px">
+	            <div class="HeadlineField-input Input-wrapper">
+	            <input value="{$user.education}" class="Input" name="education"></div>
+	            </div>
+	            
+	            <h3 class="Field-label" style="margin-left:30px;margin-top:20px">公司机构：</h3>
+	            <div class="Field-content" style="margin-top:20px">
+	            <div class="HeadlineField-input Input-wrapper">
+	            <input value="{$user.company}" class="Input" name="company"></div>
+	            </div>
+	            
+	            <h3 class="Field-label" style="margin-left:30px;margin-top:20px">职位：</h3>
+	            <div class="Field-content" style="margin-top:20px">
+	            <div class="HeadlineField-input Input-wrapper">
+	            <input value="{$user.position}" class="Input" name="position"></div>
+	            </div>
+	            
+	            <h3 class="Field-label" style="margin-left:30px;margin-top:20px">工龄：</h3>
+	            <div class="Field-content" style="margin-top:20px">
+	            <div class="HeadlineField-input Input-wrapper">
+	            <if condition="$user['works_years']">
+	            	<input value="{$user.works_years}" class="Input" name="works_years"></div>
+	            <else/>
+	            	<input value="" class="Input" name="works_years"></div>
+	            </if>
+	            </div>
+	            
+	            
+	            <div class="Field-content"><div>
+	            <div class="HeadlineField-actions">
+	            <div class="ButtonGroup HeadlineField-buttonGroup">
+	            <button class="Button Button--primary Button--blue" type="submit" onclick="saveMyRenzheng()" style="background:#EF8023;border:1px #EF8023 solid">保存</button>
+	            </div>
+	            <span class="MaxLength"></span></div>
+	            </div></div>
+	            </form>
+	            
+	            <script>
+	            var loading=0;
+	        	
+	        	function saveMyRenzheng(){
+	        	  if(loading){
+	        	    return false;
+	        	  }
+	        	  loading=1;
+	        	   $('#form').ajaxForm({
+	        	        beforeSubmit:  checkForm,// pre-submit callback
+	        	        success:       complete,// post-submit callback
+	        	        dataType: 'json'
+	        	   });
+	        	   
+	        	    function checkForm(){
+	        	    	 if(!$.trim ( $("input[name='realname']").val() )){
+	        	 	        alert('请填写昵称');
+	        	 	        return false;
+	        	 	     }  
+	        	    	 
+	        	    	 if(!$.trim ( $("input[name='idcard']").val() )){
+	        	 	        alert('请填写身份证');
+	        	 	        return false;
+	        	 	     }
+	        	    	 
+	        	    }
+	        	    
+	        	    function complete(d){
+	        	        if (!d.error){
+	        	        	alert("保存成功");
+	        	        	window.location.reload();
+	        	        }else{
+	        	        	alert(d.error);
+	        	        	loading=0;
+	        	        }
+	        	    }
+	        	}
+	            </script>
+	        <elseif condition="$Think.get.type eq 3"/>
+	            <form id="form" class="Field" action="__URL__/saveSetting" method="post" >
+	            
+	             <h3 class="Field-label" style="margin-left:20px;margin-top:20px">是否接受邮箱通知：</h3>
+	            <div class="Field-content" style="margin-top:20px;margin-left:20px">
+	            <if condition="$user['is_email']">
+		            <input value="1" type="radio" name="is_email" checked="checked">是
+		            <input value="0" type="radio" name="is_email">否
+		        <else/>
+		        	<input value="1" type="radio" name="is_email">是
+		            <input value="0" type="radio" name="is_email" checked="checked">否
+		        </if>
+	            </div>
+	            
+	            <div class="Field-content"><div>
+	            <div class="HeadlineField-actions">
+	            <div class="ButtonGroup HeadlineField-buttonGroup">
+	            <button class="Button Button--primary Button--blue" onclick="saveSetting()" type="submit" style="background:#EF8023;border:1px #EF8023 solid">保存</button>
+	            </div>
+	            <span class="MaxLength"></span></div>
+	            </div></div>
+	            </form>
+	            
+	            <script>
+	            var loading=0;
+	        	
+	        	function saveSetting(){
+	        	  if(loading){
+	        	    return false;
+	        	  }
+	        	  loading=1;
+	        	   $('#form').ajaxForm({
+	        	        beforeSubmit:  checkForm,// pre-submit callback
+	        	        success:       complete,// post-submit callback
+	        	        dataType: 'json'
+	        	   });
+	        	   
+	        	    function checkForm(){
+	        	    }
+	        	    
+	        	    function complete(d){
+	        	        if (!d.error){
+	        	        	alert("保存成功");
+	        	        	window.location.reload();
+	        	        }else{
+	        	        	alert(d.error);
+	        	        	loading=0;
+	        	        }
+	        	    }
+	        	}
+	            </script>
+	        </if>
+            
+            
+           </div>
+          </div>
+         </div>
+        </div>
+         <include file="public_right" />
+       </div>
+      </div>
+     </div>
+    </main>
+  <div>
+  </div>
+  <include file="Public:footer" />
+ </body>
+</html>

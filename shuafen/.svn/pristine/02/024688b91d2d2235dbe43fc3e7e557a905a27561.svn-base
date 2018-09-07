@@ -1,0 +1,154 @@
+<?php if (!defined('THINK_PATH')) exit();?><!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>管理中心</title>
+<meta name="Copyright" content="Douco Design." />
+<link href="/aixuewen/Public/Admin/styles/public.css" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="/aixuewen/Public/Admin/js/jquery-1.8.2.min.js"></script>
+<script type="text/javascript" src="/aixuewen/Public/Admin/js/jquery.form.js"></script>
+<script type="text/javascript" src="/aixuewen/Public/Admin/js/global.js"></script>
+<script type="text/javascript" src="/aixuewen/Public/Admin/js/ajaxfileupload.js"></script>
+
+<link rel="stylesheet" href="/aixuewen/Public/Admin/styles/jquery.datetimepicker.css">
+<link rel="stylesheet" href="/aixuewen/Public/Admin/styles/jquery-ui.css">
+<script src="/aixuewen/Public/Admin/js/jquery-ui.js"></script>
+<script src="/aixuewen/Public/Admin/js/jquery.datetimepicker.js"></script>
+
+<!-- 百度编辑器  -->
+<script src="/aixuewen/Data/Ueditor/ueditor.config.js"></script>
+<script src="/aixuewen/Data/Ueditor/ueditor.all.js"></script>
+<script type="text/javascript">
+  	window.UEDITOR_CONFIG.initialFrameHeight = 400;
+  	window.UEDITOR_CONFIG.initialFrameWidth = 800;
+  	window.UEDITOR_CONFIG.savePath='upload1';
+  	window.UEDITOR_CONFIG.imageUrl = '__GROUP__/Works/upload/';
+  	window.UEDITOR_CONFIG.imagePath = '/aixuewen/Public/upload/';
+
+    
+</script>
+
+<style type="text/css">
+em{
+	padding-left:20px;margin-top:3px
+}
+</style>
+</head>
+<body>
+<div id="dcWrap"> <div id="dcHead">
+ <div id="head">
+  <!-- <div class="logo"><a href="index.html"><img src="/aixuewen/Public/Admin/images/dclogo.gif" alt="logo"></a></div> -->
+  <div class="nav">
+   <ul>
+    <li id="kzmb"><a href="/aixuewen/index.php/Admin/Index/index">控制面板</a></li>
+   </ul>
+   <ul class="navRight">
+    <li class="M noLeft"><a href="JavaScript:void(0);">您好，<?php echo session('uname'); ?></a>
+     <div class="drop mUser">
+     </div>
+    </li>
+    <li class="noRight"><a href="/aixuewen/index.php/Admin/Login/logout">退出</a></li>
+   </ul>
+  </div>
+ </div>
+</div>
+
+<!-- dcHead 结束 -->
+
+<!-- menu -->
+ <div id="dcLeft" style="height:95%; overflow:hidden; position:absolute;overflow-y:auto;top:40px;"><div id="menu">
+ 
+<ul class="top">
+  <li style="height:30px; line-height:30px;"><em>安卓版本更新</em></li>
+ </ul>
+ <ul>
+  	<li id="bbgx"><a href="<?php echo U('Index/updateapp');?>"><em>安装包上传</em></a></li>
+  	
+  	<li id="lb"><a href="<?php echo U('Index/lbpic');?>"><em>轮播图</em></a></li>
+  	<li id="kc"><a href="<?php echo U('Index/lession');?>"><em>课程管理</em></a></li>
+ </ul>
+
+
+ </div>
+ </div>
+  
+<link rel="stylesheet" type="text/css" href="/aixuewen/Public/Admin/webuploader/0.1.5/webuploader.css" />
+<script type="text/javascript" src="/aixuewen/Public/Admin/webuploader/0.1.5/webuploader.min.js"></script>
+<div id="dcMain"> <!-- 当前位置 -->
+<div class="mainBox imgModule">
+<h3><a href="<?php echo U('Index/addlbpic');?>" class="actionBtn">添加</a>轮播图列表</h3>
+<table width="100%" border="0" cellpadding="10" cellspacing="0" class="tableBasic">
+<!-- 列表 -->
+    	<tr>
+            <th width="200">图片</th>
+            <th>链接</th>
+			<th width="60">操作</th>
+        </tr>
+		<?php if(is_array($list)): $i = 0; $__LIST__ = $list;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$list): $mod = ($i % 2 );++$i;?><tr class="tron">
+				<td><img src="/aixuewen/<?php echo ($list["pic"]); ?>" width="150px" height="90px" /></td>
+				<td style="word-break:break-all;"><?php echo ($list["links"]); ?></td>
+		        <td align="center">
+	                <a href="javascript:;" title="删除" class="btn-delete" id="<?php echo ($list["id"]); ?>">删除</a> 
+		        </td>
+	        </tr><?php endforeach; endif; else: echo "" ;endif; ?>
+	</table>
+	<div class="pager"><?php echo ($page); ?></div>
+</div>
+</div>
+<div class="clear"></div>
+<div id="footer">
+	<div class="line"></div>
+</div>
+<div class="clear"></div> 
+</div>
+<script>
+$('.btn-delete').each(function() {
+	  $(this).click(function() {
+	    if(confirm('确定要删除吗？')){
+	      params = {};
+	      params.id = $(this).attr("id");
+	      var url = '/aixuewen/index.php/Admin/Index/deleteLunbo';
+	      $.post(url, params, function(d){
+	        if(d.error == ""){
+	          	alert("删除成功");
+	            window.location.reload();
+	        }else{
+	          alert(d.error);
+	        }
+	      }, 'json');
+	    }
+	  });
+	});
+	
+$('.sort').each(function() {
+	  $(this).blur(function() {
+	      params = {};
+	      params.id = $(this).attr("cid");
+	      params.sort = $(this).val();
+	      var url = '/aixuewen/index.php/Admin/Index/saveSortHandle';
+	      $.post(url, params, function(d){
+	        if(d.error == ""){
+	            window.location.reload();
+	        }else{
+	          	alert(d.error);
+	        }
+	      }, 'json');
+	  });
+	});
+</script>
+<script>
+$('.nav ul li').each(function() {
+  $('.nav ul li').css("background","#0072C6");
+  $('.nav ul li a').css("color","#D9D9D9");
+});
+$('#kzmb').css("background","#60BBFF");
+$('#kzmb a').css("color","#FFFFFF");
+
+$('.con li').each(function() {
+  $('.con li').attr("class","");
+});
+$('#lb').attr("class","cur");
+</script>
+</body>
+</html>
+</div>

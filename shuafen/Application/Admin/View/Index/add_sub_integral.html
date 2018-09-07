@@ -1,0 +1,85 @@
+<layout name="Index/index" />
+<script type="text/javascript" src="__PUBLIC__/Admin/js/jquery-1.8.2.min.js"></script>
+<script src="__PUBLIC__/Admin/js/jquery.datetimepicker.js"></script>
+<div id="dcMain"> <!-- 当前位置 -->
+<div class="mainBox imgModule">
+  <h3>积分规则设置</h3>
+  <form id="form" action="__URL__/edit_product"  method="post" enctype="multipart/form-data">
+  	<input id="pic" type="hidden" name="pic" value="" />
+    <table width="100%" border="0" cellpadding="8" cellspacing="0" class="tableBasic">
+    		<input type="hidden" name="id" value="{$proinfo.id}" />
+    		<volist name="rule" id="vo">
+	        <tr>
+	            <td class="label" align="right">{$vo.title}：</td>
+	            <td>
+	                <input type="text" id="{$vo.id}" size="30" value="{$vo.add_or_sub}" class="inpMain"/>
+	                <span style="margin-left: 50px; color: red;">备注：{$vo.remark}</span>
+	            </td>
+	        </tr>
+       </volist>
+    </table>
+  </form>
+</div>
+ <div class="clear"></div>
+ <div id="footer">
+  <div class="line"></div>
+</div>
+<div class="clear"></div> 
+</div>
+<script>
+$(".datetimepicker").datetimepicker({
+    lang:"ch", 
+    format: 'Y年m月d日  H:i',
+    startView:1
+});
+UE.getEditor('content', {
+  "initialFrameWidth" : "100%",   // 宽
+  "initialFrameHeight" : 400,      // 高
+  "maximumWords" : 10000            // 最大可以输入的字符数量
+});
+</script>
+<script>
+$('.nav ul li').each(function() {
+  $('.nav ul li').css("background","#0072C6");
+  $('.nav ul li a').css("color","#D9D9D9");
+});
+$('#kzmb').css("background","#60BBFF");
+$('#kzmb a').css("color","#FFFFFF");
+
+$('.con li').each(function() {
+  $('.con li').attr("class","");
+});
+$('#jfsz').attr("class","cur");
+</script>
+
+
+<script>
+		function goback(){
+    	history.go(-1);
+    }
+		
+	
+</script>
+
+<script>
+	$('.inpMain').each(function() {
+	  $(this).blur(function() {
+	      params = {};
+	      params.id = $(this).attr("id");
+	      params.integral = $(this).val(); 
+	      var url = '__URL__/change_rule';
+	      $.post(url, params, function(d){
+	        if(d.error == ""){
+	          	alert("修改成功");
+	            window.location.reload();
+	        }else{
+	          alert(d.error);
+	          window.location.reload();
+	        }
+	      }, 'json');
+	  });
+	});
+	
+</script>
+</body>
+</html>

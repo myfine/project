@@ -1,0 +1,200 @@
+<?php if (!defined('THINK_PATH')) exit();?><!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>管理中心</title>
+<meta name="Copyright" content="Douco Design." />
+<link href="/aixuewen/Public/Admin/styles/public.css" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="/aixuewen/Public/Admin/js/jquery-1.8.2.min.js"></script>
+<script type="text/javascript" src="/aixuewen/Public/Admin/js/jquery.form.js"></script>
+<script type="text/javascript" src="/aixuewen/Public/Admin/js/global.js"></script>
+<script type="text/javascript" src="/aixuewen/Public/Admin/js/ajaxfileupload.js"></script>
+
+<link rel="stylesheet" href="/aixuewen/Public/Admin/styles/jquery.datetimepicker.css">
+<link rel="stylesheet" href="/aixuewen/Public/Admin/styles/jquery-ui.css">
+<script src="/aixuewen/Public/Admin/js/jquery-ui.js"></script>
+<script src="/aixuewen/Public/Admin/js/jquery.datetimepicker.js"></script>
+
+<!-- 百度编辑器  -->
+<script src="/aixuewen/Data/Ueditor/ueditor.config.js"></script>
+<script src="/aixuewen/Data/Ueditor/ueditor.all.js"></script>
+<script type="text/javascript">
+  	window.UEDITOR_CONFIG.initialFrameHeight = 400;
+  	window.UEDITOR_CONFIG.initialFrameWidth = 800;
+  	window.UEDITOR_CONFIG.savePath='upload1';
+  	window.UEDITOR_CONFIG.imageUrl = '__GROUP__/Works/upload/';
+  	window.UEDITOR_CONFIG.imagePath = '/aixuewen/Public/upload/';
+
+    
+</script>
+
+<style type="text/css">
+em{
+	padding-left:20px;margin-top:3px
+}
+</style>
+</head>
+<body>
+<div id="dcWrap"> <div id="dcHead">
+ <div id="head">
+  <!-- <div class="logo"><a href="index.html"><img src="/aixuewen/Public/Admin/images/dclogo.gif" alt="logo"></a></div> -->
+  <div class="nav">
+   <ul>
+    <li id="kzmb"><a href="/aixuewen/index.php/Admin/Index/index">控制面板</a></li>
+   </ul>
+   <ul class="navRight">
+    <li class="M noLeft"><a href="JavaScript:void(0);">您好，<?php echo session('uname'); ?></a>
+     <div class="drop mUser">
+     </div>
+    </li>
+    <li class="noRight"><a href="/aixuewen/index.php/Admin/Login/logout">退出</a></li>
+   </ul>
+  </div>
+ </div>
+</div>
+
+<!-- dcHead 结束 -->
+
+<!-- menu -->
+ <div id="dcLeft" style="height:95%; overflow:hidden; position:absolute;overflow-y:auto;top:40px;"><div id="menu">
+ 
+<ul class="top">
+  <li style="height:30px; line-height:30px;"><em>安卓版本更新</em></li>
+ </ul>
+ <ul>
+  	<li id="bbgx"><a href="<?php echo U('Index/updateapp');?>"><em>安装包上传</em></a></li>
+  	
+  	<li id="lb"><a href="<?php echo U('Index/lbpic');?>"><em>轮播图</em></a></li>
+  	<li id="kc"><a href="<?php echo U('Index/lession');?>"><em>课程管理</em></a></li>
+ </ul>
+
+
+ </div>
+ </div>
+  
+<link rel="stylesheet" type="text/css" href="/aixuewen/Public/Admin/webuploader/0.1.5/webuploader.css" />
+<link rel="stylesheet" type="text/css" href="/aixuewen/Public/css/public.css" />
+<script type="text/javascript" src="/aixuewen/Public/Admin/webuploader/0.1.5/webuploader.min.js"></script>
+<div id="dcMain"> <!-- 当前位置 -->
+	<style>
+		.mysort{
+			width: 50px;line-height: 25px;
+			height: 25px;text-align: center;
+			font-size: 14px;
+		}
+		#add{
+			width: 700px;
+			padding-top: 30px;
+			display: none; 
+			height: auto;
+			text-align: center; 
+			background-color: #CCC;
+			position: absolute;
+			z-index: 9; 
+			top:50%;left:55%;
+			margin-top: -100px;
+			margin-left: -350px;
+			border-radius: 5px;
+		}
+		#close{
+			float: right;
+			margin-top: -25px;
+			margin-right: 10px;
+			cursor: pointer;
+			font-weight: bold;
+			font-size: 16px;
+		}
+		#close:hover{
+			color: #F00;
+		}
+	</style>
+<div class="mainBox imgModule">
+<h3>
+	<span class="actionBtn" style="margin-left: 10px; cursor: pointer;"onclick="goback();">返回</span>
+	<a href="/aixuewen/index.php/Admin/Index/addpapers/id/<?php echo ($kc_cn['id']); ?>"><span class="actionBtn" style=" cursor: pointer;">添加</span></a>
+	<?php echo ($kc_cn['name']); ?>—试卷&amp;练习列表</h3>
+	
+	<div class='tabs' id="tabs" style="margin-top: -10px;">
+        <ul class="tab">
+        	<?php if($_GET['type']== 1): ?><li><a href="/aixuewen/index.php/Admin/Index/papers/id/<?php echo ($kc_cn['id']); ?>/type/1" class="selected">试卷</a></li>
+	      		<li><a href="/aixuewen/index.php/Admin/Index/papers/id/<?php echo ($kc_cn['id']); ?>/type/2">练习</a></li>
+	      	<?php elseif($_GET['type']== 2): ?>
+	      		<li><a href="/aixuewen/index.php/Admin/Index/papers/id/<?php echo ($kc_cn['id']); ?>/type/1">试卷</a></li>
+	      		<li><a href="/aixuewen/index.php/Admin/Index/papers/id/<?php echo ($kc_cn['id']); ?>/type/2" class="selected">练习</a></li><?php endif; ?>
+        </ul>
+   </div>
+	
+	<!--试卷-->
+	<table width="100%" border="0" cellpadding="10" cellspacing="0" class="tableBasic">
+	<!-- 列表 -->
+    	<tr>
+    		<?php if(I(type) == 1){ ?>
+            	<th>试卷名</th>
+            <?php }else{ ?>
+            	<th>练习名</th>
+            <?php } ?>
+            <th>价格</th>
+            <th>购买人数</th>
+			<th width="10%">操作</th>
+        </tr>
+		<?php if(is_array($list)): $i = 0; $__LIST__ = $list;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$list): $mod = ($i % 2 );++$i;?><tr class="tron">
+				<td>
+					<a href="/aixuewen/<?php echo ($list["word"]); ?>"><?php echo ($list["title"]); ?></a>
+				</td>
+				<td style="text-align: center;"><?php echo ($list["price"]); ?></td>
+				<td style="text-align: center;"><?php echo ($list["buy_num"]); ?></td>
+		        <td align="center">
+		        	<a href="/aixuewen/index.php/Admin/Index/editpapers/id/<?php echo ($list["id"]); ?>" >编辑 | </a>
+	                <a href="javascript:;" title="删除" class="btn-delete" id="<?php echo ($list["id"]); ?>">删除</a> 
+		        </td>
+	        </tr><?php endforeach; endif; else: echo "" ;endif; ?>
+	</table>
+	<div class="pager"><?php echo ($page); ?></div>
+</div>
+</div>
+<div class="clear"></div>
+<div id="footer">
+	<div class="line"></div>
+</div>
+<div class="clear"></div> 
+</div>
+<script>
+	function goback(){
+    	history.go(-1);
+    }
+
+	$('.btn-delete').each(function() {
+	  $(this).click(function() {
+	    if(confirm('确定要删除吗？')){
+	      params = {};
+	      params.id = $(this).attr("id");
+	      var url = '/aixuewen/index.php/Admin/Index/deletepapers';
+	      $.post(url, params, function(d){
+	        if(d.error == ""){
+	          	alert("删除成功");
+	            window.location.reload();
+	        }else{
+	          alert(d.error);
+	          window.location.reload();
+	        }
+	      }, 'json');
+	    }
+	  });
+	});
+</script>
+<script>
+$('.nav ul li').each(function() {
+  $('.nav ul li').css("background","#0072C6");
+  $('.nav ul li a').css("color","#D9D9D9");
+});
+$('#kzmb').css("background","#60BBFF");
+$('#kzmb a').css("color","#FFFFFF");
+
+$('.con li').each(function() {
+  $('.con li').attr("class","");
+});
+$('#kc').attr("class","cur");
+</script>
+</body>
+</html>
+</div>

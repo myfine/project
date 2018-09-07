@@ -1,0 +1,18 @@
+
+
+
+
+<input type="hidden" value="{$_SESSION['user'][id]}" id="playid">
+
+<script>
+	$(function(){
+		playid = $('#playid').val();
+		
+		url = window.location.href;
+        if(url.indexOf('/index.php/Home/')>0){
+        	if(playid=='' || playid==undefined){
+			 myalert('请先登录','/');
+			}
+        }
+	})
+</script>

@@ -1,0 +1,237 @@
+      <include file="Public:header" />
+      <style>
+      .Profile-mainColumn{width:100%;}
+      </style>
+     <div class="Sticky--holder" style="position: relative; top: auto; right: auto; bottom: auto; left: auto; display: block; float: none; margin: 0px; height: 53px;"></div>
+    <main role="main" class="App-main">
+     <div>
+      <div>
+      <include file="public_header" />
+       <div class="Profile-main">
+        <div class="Profile-mainColumn">
+         <div class="Card ProfileMain" id="ProfileMain">
+         	<div class="ProfileMain-header">
+			 <ul role="tablist" class="Tabs ProfileMain-tabs">
+			  <li role="tab" class="Tabs-item" aria-controls="Profile-answers"><a class="Tabs-link is-active" href="__URL__/personal">
+			    		订单记录<span class="Tabs-meta"></span></a></li>
+
+<?php
+    $res = M('first_charge_record')->where(array('userid'=>$_SESSION['user']['id']))->find();
+    if(!$res){
+?>    
+			  <li role="tab" class="Tabs-item" aria-controls="Profile-asks"><a class="Tabs-link" href="__URL__/first">
+			    		超级首冲<span class="Tabs-meta"></span></a></li>
+
+<?php
+    }
+?>
+
+			  <li role="tab" class="Tabs-item" aria-controls="Profile-asks"><a class="Tabs-link" href="__URL__/tousu">
+			    		我要投诉</a></li>
+			 </ul>
+			</div>
+          <div>
+           <div>
+            <div class="Sticky"></div>
+           </div>
+          </div>
+          
+          <div class="List Profile-answers" id="Profile-answers">
+
+
+<volist name="order" id="vo">
+
+<div class="List-item">
+ <div class="ContentItem AnswerItem">
+  <h2 class="ContentItem-title">
+    
+   <p style="font-size:18px;">{$vo.pro.title}<span style="float:right;clear:none">
+     <?php echo date('Y-m-d H:i:s',$vo['time']);?></span></p></h2>
+   <div class="RichContent is-collapsed">
+    <div class="ContentItem-title" style="font-size:14px;padding:20px 0;">
+      <span style="float:left;">{$vo.needfenbi}粉币&nbsp;&nbsp;&nbsp;&nbsp;作品ID:{$vo.content} </span>
+<span style="color:#3879d9;float:right;clear:none">
+  <if condition="$vo['status'] eq 0">
+    进行中
+    <elseif condition="$vo['status'] eq 1"/>
+      完成
+      <else/>
+      取消
+  </if>
+</span>
+    </div>
+
+   </div>
+  </div>
+ </div>
+
+</volist>
+
+
+
+
+
+
+
+
+
+    
+
+
+	            <div id="container"></div>
+	            <if condition="$tpage" >
+	            	<div id="pagediv" class="Card"><a href="javascipt:void()" id="page" class="QuestionMainAction" p="2">下一页</a></div>
+	            </if>
+          </div>
+          
+         </div>
+        </div>
+        
+         <include file="Me:public_right" />
+        
+       </div>
+      </div>
+     </div>
+    </main>
+   </div>
+  </div>
+  <div>
+  </div>
+
+<style>
+.categoryShow_title{text-align:center;margin-bottom:20px;color:red;font-size:16px;}
+.jiahao{text-align: center;float:left;width:10%;font-size:20px;}
+</style>
+
+
+        <!-- 弹出框 -->
+  <div class="Modal-wrapper" id="categoryShow" style="display:none">
+  <div class="Modal-backdrop"></div>
+  <div class="Modal Modal--large QuestionAsk-Modal" tabindex="0">
+
+
+  <div class="Modal-inner">
+  <h3 class="Modal-title" id="shua_title"></h3>
+  <input type="hidden" xf="" id="productid">
+   <div class="Modal-content" style="height:140px;padding: 0 15px;">
+<!--开始-->
+      <div class="categoryShow_title">首充大礼包</div>
+
+        <div class="modiv" style="width:45%;float:left;margin-left:">
+        <div class="modiv_left" style="border:none">
+          
+          <div class="modiv_yef" style="margin-left:70px;">
+            <div class="modiv_yef_a"><img src="__PUBLIC__/Home/image/fenbi_sign_success.png"></div>
+            <div class="modiv_yef_b"><span class="modiv_fenbi">9000</span> 粉币</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="jiahao">+</div>
+      <div class="modiv" style="width:45%;float:left;margin-left:">
+        <div class="modiv_left" style="border:none">
+          
+          <div class="modiv_yef">
+            <div class="modiv_yef_a"><img src="__PUBLIC__/Home/image/fenbi_sign_success.png"></div>
+            <div class="modiv_yef_b"><span class="modiv_fenbi">2000</span> 粉币</div>
+          </div>
+        </div>
+      </div>
+
+   
+
+     
+<!--结束-->
+   </div>
+
+  <div class="Modal-content" style="margin-top:0">
+    <p style="text-align:center;color:#3879d9">每个用户只有一次机会</p>
+  
+  <div class="QuestionAsk">
+  <div class="QuestionAsk-buttonGroup">
+    <input type="hidden" id="firstfee" value="9">
+  <button class="Button Button--primary Button--blue" type="button" id="tijiao" style="background:#0f88eb;border:1px #0f88eb solid">￥9</button></div>
+  </div></div>
+</div>
+
+
+
+
+
+  <button class="Button Modal-closeButton Button--plain" type="button" onclick="hideShow()"><svg viewBox="0 0 14 14" class="Icon Modal-closeIcon Icon--remove" width="16" height="16" aria-hidden="true" style="height: 16px; width: 16px;"><title></title><g><path d="M8.486 7l5.208-5.207c.408-.408.405-1.072-.006-1.483-.413-.413-1.074-.413-1.482-.005L7 5.515 1.793.304C1.385-.103.72-.1.31.31-.103.724-.103 1.385.305 1.793L5.515 7l-5.21 5.207c-.407.408-.404 1.072.007 1.483.413.413 1.074.413 1.482.005L7 8.485l5.207 5.21c.408.407 1.072.404 1.483-.007.413-.413.413-1.074.005-1.482L8.485 7z"></path></g></svg></button></div></div>
+
+
+<!--弹出框结束-->
+
+
+
+
+
+
+
+
+  <include file="Public:footer" />
+ </body>
+</html>
+
+
+<script>
+  $(function(){
+      $('#tijiao').click(function(){
+          firstfee = $('#firstfee').val();
+          location.href="__MODULE__/Me/alipay";
+      })
+  })
+</script>
+
+
+
+
+
+
+
+
+
+<script>
+	$("#page").click(function(){
+		var p = $(this).attr("p");
+		params = {};
+	    params.pageNo = p;
+	    var url = '__GROUP__/Viewpoint/ajaxLiyan';
+	    $.post(url, params, function(d){
+   			if(d.end){
+      			$("#pagediv").hide();
+      		}
+ 	   		$("#container").append(d.content);
+	   	}, 'json');
+		
+		ps = parseInt(p) + 1;
+		$(this).attr("p", ps);
+	});
+
+</script>
+
+
+
+
+
+
+<script> 
+
+  function hideShow(){
+       $('#categoryShow').hide();
+  }
+<?php
+    $res = M('first_charge_record')->where(array('userid'=>$_SESSION['user']['id']))->find();
+    if(!$res){
+?>
+  $(function(){
+      $('#categoryShow').show();
+  })
+
+<?php
+      }
+?>
+</script>
+
+

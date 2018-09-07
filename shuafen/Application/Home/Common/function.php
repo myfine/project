@@ -1,0 +1,388 @@
+<?php
+
+
+
+
+
+/**
+ * 支付宝
+ */
+function alipay($order,$type)
+{
+
+	require_once("./alipay/alipay.config.php");
+	require_once("./alipay/lib/alipay_submit.class.php");
+
+	/**************************请求参数**************************/
+	//立言id,用户id
+	//商户订单号，商户网站订单系统中唯一订单号，必填
+	$out_trade_no = $order['trade_no'];
+	//订单名称，必填
+	$subject = $order['subject'];
+	//付款金额，必填
+	$total_fee = $order['price'];
+	//商品描述，可空
+	$body = $order['body'];
+
+	$userid = $order['userId'];
+	//回调通知地址
+
+if($type==1){
+	$notify_url = 'http://'.$_SERVER['HTTP_HOST'].__MODULE__.'/Callback/alipay_notify_urls/userid/'+$userid;
+	$return_url = 'http://'.$_SERVER['HTTP_HOST'].__MODULE__.'/Me/first/';
+}else{
+	$notify_url = 'http://'.$_SERVER['HTTP_HOST'].__MODULE__.'/Callback/falipay_notify_url/userid/'+$userid;
+	$return_url = 'http://'.$_SERVER['HTTP_HOST'].__MODULE__.'/Me/first/';
+}
+		
+
+
+	
+
+	/************************************************************/
+
+	//构造要请求的参数数组，无需改动
+	$parameter = array(
+			"service"       => $alipay_config['service'],
+			"partner"       => $alipay_config['partner'],
+			"seller_id"  => $alipay_config['seller_id'],
+			"payment_type"	=> $alipay_config['payment_type'],
+			"notify_url"	=> $notify_url,
+			"return_url"	=> $return_url,
+			"anti_phishing_key"=>$alipay_config['anti_phishing_key'],
+			"exter_invoke_ip"=>$alipay_config['exter_invoke_ip'],
+			"out_trade_no"	=> $out_trade_no,
+			"subject"	=> $subject,
+			"total_fee"	=> $total_fee,
+			"body"	=> $body,
+			"_input_charset"	=> trim(strtolower($alipay_config['input_charset']))
+			//其他业务参数根据在线开发文档，添加参数.文档地址:https://doc.open.alipay.com/doc2/detail.htm?spm=a219a.7629140.0.0.kiX33I&treeId=62&articleId=103740&docType=1
+			//如"参数名"=>"参数值"
+
+	);
+
+	//建立请求
+	$alipaySubmit = new AlipaySubmit($alipay_config);
+	$html_text = $alipaySubmit->buildRequestForm($parameter,"get","确认");
+	echo $html_text;
+}
+
+function alipaywap($order){
+	header("Content-type: text/html; charset=utf-8");
+	require_once './alipaywap/aop/request/AlipayTradePagePayRequest.php';
+	require_once './alipaywap/aop/request/AlipayTradeWapPayRequest.php';
+	require_once './alipaywap/aop/AopClient.php';
+	require_once './alipaywap/wappay/service/AlipayTradeService.php';
+	require_once './alipaywap/wappay/buildermodel/AlipayTradeWapPayContentBuilder.php';
+	require './alipaywap/config.php';
+	//商户订单号，商户网站订单系统中唯一订单号，必填
+	$out_trade_no = $order['WIDout_trade_no'];
+
+	//订单名称，必填
+	$subject = $order['WIDsubject'];
+
+	//付款金额，必填
+	$total_amount = $order['WIDtotal_amount'];
+
+	//商品描述，可空
+	$body = $order['WIDbody'];
+	//用户id
+    $userid = $order['userId'];
+	//超时时间
+	$timeout_express="1m";
+  
+
+	$payRequestBuilder = new AlipayTradeWapPayContentBuilder();
+	$payRequestBuilder->setBody($body);
+	$payRequestBuilder->setSubject($subject);
+	$payRequestBuilder->setOutTradeNo($out_trade_no);
+	$payRequestBuilder->setTotalAmount($total_amount);
+	$payRequestBuilder->setTimeExpress($timeout_express);
+
+	$config['notify_url'] = 'http://'.$_SERVER['HTTP_HOST'].__MODULE__.'/Callback/alipay_wap';
+	$config['return_url'] = 'http://'.$_SERVER['HTTP_HOST'].__MODULE__.'/Order/orderlist';
+	$payResponse = new AlipayTradeService($config);
+	$result=$payResponse->wapPay($payRequestBuilder,$config['return_url'],$config['notify_url']);
+
+	return ;
+}
+
+
+/**
+ * 支付宝回调地址引入文件
+ */
+function alipay_notify_url(){
+	require_once("./alipay/alipay.config.php");
+	require_once("./alipay/lib/alipay_notify.class.php");
+
+	//计算得出通知验证结果
+	$alipayNotify = new AlipayNotify($alipay_config);
+	$verify_result = $alipayNotify->verifyNotify();
+	return $verify_result;
+}
+
+
+/**
+ * 支付宝手机回调地址引入文件
+ */
+function malipay_notify_url(){
+	require_once("./alipaywap/config.php");
+	require_once './alipaywap/aop/request/AlipayTradePagePayRequest.php';
+	require_once './alipaywap/aop/request/AlipayTradeWapPayRequest.php';
+	require_once './alipaywap/aop/AopClient.php';
+	require_once("./alipaywap/wappay/service/AlipayTradeService.php");
+	
+	//计算得出通知验证结果
+	$arr=$_POST;
+	$alipaySevice = new AlipayTradeService($config);
+	$alipaySevice->writeLog(var_export($_POST,true));
+	$result = $alipaySevice->check($arr);
+	return $result;
+}
+
+/**
+ * 微信支付
+ */
+function wxpay($title,$price,$out_trade_no,$product_id,$userid){
+	include_once( './wxpay/lib/WxPay.Api.php' );
+	include_once( './wxpay/WxPay.NativePay.php');
+	
+	$link = "http://www.51miyu.cn/Home/Callback/wxpay_notify_url/userid/".$userid;
+	$notify = new NativePay();
+	$input = new WxPayUnifiedOrder();
+	$input->SetBody($title);
+	$input->SetAttach($title);
+	$input->SetOut_trade_no($out_trade_no);
+	$input->SetTotal_fee($price * 100);
+	$input->SetTime_start(date("YmdHis"));
+	$input->SetTime_expire(date("YmdHis", time() + 600));
+	$input->SetGoods_tag($title);
+	$input->SetNotify_url($link);
+	$input->SetTrade_type("NATIVE");
+	$input->SetProduct_id($product_id);
+	$result = $notify->GetPayUrl($input);
+	return $result["code_url"];//二维码
+}
+
+function fwxpay($title,$price,$out_trade_no,$product_id,$userid){
+	include_once( './wxpay/lib/WxPay.Api.php' );
+	include_once( './wxpay/WxPay.NativePay.php');
+	
+	$link = "http://www.51miyu.cn/Home/Callback/fwxpay_notify_url/userid/".$userid;
+	$notify = new NativePay();
+	$input = new WxPayUnifiedOrder();
+	$input->SetBody($title);
+	$input->SetAttach($title);
+	$input->SetOut_trade_no($out_trade_no);
+	$input->SetTotal_fee($price * 100);
+	$input->SetTime_start(date("YmdHis"));
+	$input->SetTime_expire(date("YmdHis", time() + 600));
+	$input->SetGoods_tag($title);
+	$input->SetNotify_url($link);
+	$input->SetTrade_type("NATIVE");
+	$input->SetProduct_id($product_id);
+	$result = $notify->GetPayUrl($input);
+	return $result["code_url"];//二维码
+}
+
+
+/**
+ * 微信支付回调地址
+ */
+function wxpay_native_notify_url(){
+	include_once( './wxpay/native_notify.php' );
+}
+
+
+/**
+ * 微信支付回调地址
+ */
+function wxpay_notify_url(){
+	include_once( './wxpay/notify.php' );
+}
+
+
+/**
+ * qq登陆
+ **/
+function qqlogin(){
+	include_once( './qqlogin/API/qqConnectAPI.php' );
+	$qc = new QC();
+	$qc->qq_login();
+}
+
+/**
+ * qq登陆callback
+ **/
+function qqlogincallback(){
+	include_once( './qqlogin/API/qqConnectAPI.php');
+	$qc = new QC();
+	$access_token = $qc->qq_callback();
+	$openid = $qc->get_openid();
+	$qc = new QC($access_token,$openid);
+	$user = $qc->get_user_info();
+	$user['openid'] = $openid;
+	return $user;
+}
+
+/**
+ * 支付宝网站log
+ * @param unknown $content
+ */
+function alipaylog($content){
+	require_once './log/log.php';
+	//初始化日志
+	$logHandler= new CLogFileHandler("./log/alipay/".date('Y-m-d').'.log');
+	$log = Logx::Init($logHandler, 15);
+	Logx::DEBUG($content);
+}
+
+
+
+
+
+
+  function createOrderNos(){
+        $id = date('Ymd', time()) . str_pad(rand('1', '99999'), 5, '0', STR_PAD_LEFT);
+        return $id;
+    }
+
+
+/**
+ * 微信扫描支付
+ */
+function wxpayc($userid){
+
+	require_once "./wxpay/lib/WxPay.Api.php";
+	require_once './wxpay/lib/WxPay.Notify.php';
+	
+	class PayNotifyCallBack extends WxPayNotify
+	{
+
+		//查询订单
+		public function Queryorder($transaction_id)
+		{
+			$input = new WxPayOrderQuery();
+			$input->SetTransaction_id($transaction_id);
+			$result = WxPayApi::orderQuery($input);
+			if(array_key_exists("return_code", $result)
+					&& array_key_exists("result_code", $result)
+					&& $result["return_code"] == "SUCCESS"
+					&& $result["result_code"] == "SUCCESS")
+			{
+
+				$allfee = $result['total_fee'];
+				$fenbi = M('chongzhi')->where(array('money'=>$allfee))->find();
+				//支付成功
+				$data['id'] = create_uuid();
+				$data['Integralrecord'] = '+'.$fenbi['fenbi'];
+				$data['remark'] = '微信充值';
+				$data['wx_out_trade_no'] = $result['out_trade_no'];
+				$data['total_fee'] = $result['total_fee']/100;
+				$data['result_code'] = $result['result_code'];
+				$data['time'] = time();
+				$data['userid'] = $userid;
+				M('integral_record')->add($data);
+				M('user')->where(array('id'=>$userid))->setInc('fenbi',$fenbi['fenbi']);			
+				return true;
+			}
+			return false;
+		}
+	
+		//重写回调处理函数
+		public function  NotifyProcess($data, &$msg)
+		{
+			// Logx::DEBUG("call back:" . json_encode($data));
+			$notfiyOutput = array();
+	
+			if(!array_key_exists("transaction_id", $data)){
+				$msg = "输入参数不正确";
+				return false;
+			}
+			//查询订单，判断订单真实性
+			if(!$this->Queryorder($data["transaction_id"])){
+				$msg = "订单查询失败";
+				return false;
+			}
+			return true;
+		}
+	}
+	
+// 	Logx::DEBUG("begin notify");
+	$notify = new PayNotifyCallBack($wx_out_trade_no);
+	$notify->Handle(false);
+}
+
+
+
+
+function fwxpayc($userid){
+
+	require_once "./wxpay/lib/WxPay.Api.php";
+	require_once './wxpay/lib/WxPay.Notify.php';
+	
+	class PayNotifyCallBack extends WxPayNotify
+	{
+
+		//查询订单
+		public function Queryorder($transaction_id)
+		{
+			$input = new WxPayOrderQuery();
+			$input->SetTransaction_id($transaction_id);
+			$result = WxPayApi::orderQuery($input);
+			if(array_key_exists("return_code", $result)
+					&& array_key_exists("result_code", $result)
+					&& $result["return_code"] == "SUCCESS"
+					&& $result["result_code"] == "SUCCESS")
+			{
+
+				$allfee = $result['total_fee'];
+				$first_charge = M('first_charge')->where(array('id'=>1))->find();
+
+				$fenbi = $first_charge['fenbi1']*1 + $first_charge['fenbi2']*1;
+				//支付成功
+				$data['id'] = create_uuid();
+				$data['Integralrecord'] = '+'.$fenbi;
+				$data['remark'] = '微信充值';
+				$data['wx_out_trade_no'] = $result['out_trade_no'];
+				$data['total_fee'] = $result['total_fee']/100;
+				$data['result_code'] = $result['result_code'];
+				$data['time'] = time();
+				$data['userid'] = $userid;
+				M('integral_record')->add($data);
+				M('user')->where(array('id'=>$userid))->setInc('fenbi',$fenbi);
+
+				$fen['fenbi1'] = $first_charge['fenbi1'];
+				$fen['fenbi2'] = $first_charge['fenbi2'];
+				$fen['price'] = $result['total_fee'];
+				$fen['userid'] = $userid;
+				M('first_charge_record')->add($fen);
+				return true;
+			}
+			return false;
+		}
+	
+		//重写回调处理函数
+		public function  NotifyProcess($data, &$msg)
+		{
+			// Logx::DEBUG("call back:" . json_encode($data));
+			$notfiyOutput = array();
+	
+			if(!array_key_exists("transaction_id", $data)){
+				$msg = "输入参数不正确";
+				return false;
+			}
+			//查询订单，判断订单真实性
+			if(!$this->Queryorder($data["transaction_id"])){
+				$msg = "订单查询失败";
+				return false;
+			}
+			return true;
+		}
+	}
+	
+// 	Logx::DEBUG("begin notify");
+	$notify = new PayNotifyCallBack($wx_out_trade_no);
+	$notify->Handle(false);
+}
+

@@ -1,0 +1,257 @@
+
+<?php
+    $user = M('user')->where(array('id'=>$_SESSION['user']['id']))->find();
+?>
+
+<div class="Profile-sideColumn" data-za-module="RightSideBar" style="width:600px;">
+        <div class="Card">
+          <div class="Card-header Profile-sideColumnTitle">
+           		<table style="width:100%">
+           			<tr style="height:35px">
+           				<td>积分记录&nbsp;<font color="green"><?php echo $user['fenbi']?></font>粉币</td>
+           				<td align="right">
+           				
+           				<a href="javascript:void(0)" class="Button SearchBar-askButton Button--primary Button--blue" type="button" style="background:white;color:#EF8023;border:1px #EF8023 solid;" onclick="showDiv()">购买粉币</a>
+           				</td>
+           			</tr>
+           		</table>
+          </div>
+
+  <style>
+  .Profile-sideColumnItem,.Profile-sideColumnItems{float:left;width:100%;background: #fff;padding:0;}
+  .Profile-sideColumnItem ul li{width:100%;float:left;border-bottom:1px solid #ccc;}
+  .jifen_left,.jifen_middle{float:left;padding:15px;}
+  .jifen_middle{padding-left:0;}
+  .jifen_left{width:30px;}
+  .jifen_left img{width:100%;}
+  .jifen_right{float:right;padding:15px;color:red;}
+  .jifen_middle_down{padding-top:5px;font-size:14px;color:#a0a1a1;}
+  </style>
+          <div class="Profile-sideColumnItems">
+           <div class="Profile-sideColumnItem">
+           	
+
+
+            <ul>
+              <volist name="jifen" id="vo">
+                <li>
+                    <div class="jifen_left"><img src="__PUBLIC__/Home/image/main_recharge_icon.png"></div>
+                    <div class="jifen_middle">
+                        <div class="jifen_middle_up">{$vo.remark}</div>
+                        <div class="jifen_middle_down">
+                           <?php echo date('Y-m-d H:i:s',$vo['time']);?>
+                         </div>
+                    </div>
+                    <div class="jifen_right">{$vo.integralrecord}</div>
+                </li>
+              </volist>
+            </ul>
+     
+					 
+
+			
+
+
+
+
+
+           		<if condition="$opage" >
+		            	<div id="pagedivx" class="Card" style="margin-top:10px" ><a href="javascipt:void()" id="pagex" class="QuestionMainAction" p="2" style="height:40px;line-height:40px;">下一页</a></div>
+		            </if>
+
+
+
+
+
+
+
+
+
+
+           		 <script>
+					$("#pagex").click(function(){
+						var p = $(this).attr("p");
+						params = {};
+					    params.pageNo = p;
+					    var url = '__URL__/ajaxFee';
+					    $.post(url, params, function(d){
+				   			if(d.end){
+				      			$("#pagedivx").hide();
+				      		}
+				 	   		$("#containerx").append(d.content);
+					   	}, 'json');
+						
+						ps = parseInt(p) + 1;
+						$(this).attr("p", ps);
+					});
+				</script>
+           </div>
+          </div>
+         </div>
+    
+        </div>
+       
+
+
+<style>
+.modiv{width:33.333%;float: left;margin-bottom:15px;}
+.modiv_left{width:90%;float: left;border-radius: 5px;border:1px solid #ccc;padding:5px;margin-left:1.5%;cursor:pointer}
+.cishu{margin-left:50px;color:#3879d9;}
+.modiv_yef_a{float: left;margin-left: 25px;}
+.modiv_yef_a img{width:20px;}
+.modiv_yef_b{margin-left:5px;float: left;}
+.modiv_active{border:1px solid #3879d9;}
+</style> 
+        <!-- 弹出框 -->
+  <div class="Modal-wrapper" id="categoryDiv" style="display:none">
+  <div class="Modal-backdrop"></div>
+  <div class="Modal Modal--large QuestionAsk-Modal" tabindex="0">
+
+
+  <div class="Modal-inner">
+  <h3 class="Modal-title" id="shua_title"></h3>
+  <input type="hidden" xf="" id="productid">
+   <div class="Modal-content" style="height:140px;padding: 0 15px;">
+<!--开始-->
+      <div class="modiv">
+        <div class="modiv_left modiv_active" >
+          <div class="modiv_yi"><span class="cishu"><span class="modiv_number">4800</span>粉币</span></div>
+          <div class="modiv_yef">
+            <div class="modiv_yef_a"><img src="__PUBLIC__/Home/image/kashang_fenbi.png"></div>
+            <div class="modiv_yef_b">￥<span class="modiv_fenbi">5</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="modiv">
+        <div class="modiv_left">
+          <div class="modiv_yi"><span class="cishu"><span class="modiv_number">10000</span>粉币</span></div>
+          <div class="modiv_yef">
+            <div class="modiv_yef_a"><img src="__PUBLIC__/Home/image/kashang_fenbi.png"></div>
+            <div class="modiv_yef_b">￥<span class="modiv_fenbi">10</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="modiv">
+        <div class="modiv_left">
+          <div class="modiv_yi"><span class="cishu"><span class="modiv_number">19800</span>粉币</span></div>
+          <div class="modiv_yef">
+            <div class="modiv_yef_a"><img src="__PUBLIC__/Home/image/kashang_fenbi.png"></div>
+            <div class="modiv_yef_b">￥<span class="modiv_fenbi">18</span></div>
+          </div>
+        </div>
+      </div>
+
+        <div class="modiv">
+        <div class="modiv_left" >
+          <div class="modiv_yi"><span class="cishu"><span class="modiv_number">32000</span>粉币</span></div>
+          <div class="modiv_yef">
+            <div class="modiv_yef_a"><img src="__PUBLIC__/Home/image/kashang_fenbi.png"></div>
+            <div class="modiv_yef_b">￥<span class="modiv_fenbi">30</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="modiv">
+        <div class="modiv_left">
+          <div class="modiv_yi"><span class="cishu"><span class="modiv_number">53000</span>粉币</span></div>
+          <div class="modiv_yef">
+            <div class="modiv_yef_a"><img src="__PUBLIC__/Home/image/kashang_fenbi.png"></div>
+            <div class="modiv_yef_b">￥<span class="modiv_fenbi">50</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="modiv">
+        <div class="modiv_left">
+          <div class="modiv_yi"><span class="cishu"><span class="modiv_number">10000</span>粉币</span></div>
+          <div class="modiv_yef">
+            <div class="modiv_yef_a"><img src="__PUBLIC__/Home/image/kashang_fenbi.png"></div>
+            <div class="modiv_yef_b">￥<span class="modiv_fenbi">100</span></div>
+          </div>
+        </div>
+      </div>
+<!--结束-->
+   </div>
+
+  <div class="Modal-content" style="">
+    <div class="QuestionAsk-section">
+    <div class="QuestionAsk-title Input-wrapper Input-wrapper--spread Input-wrapper--multiline Input-wrapper--large">
+    <textarea required="" name="content" rows="2" class="Input" placeholder="请输入您的快手作品ID" id="mycontent"></textarea></div></div>
+  
+  <div class="QuestionAsk">
+  <div class="QuestionAsk-buttonGroup">
+  <button class="Button Button--primary Button--blue" type="button" id="tijiao_shuafen" style="background:#0f88eb;border:1px #0f88eb solid">确定</button></div>
+  </div></div>
+</div>
+
+
+
+
+  <button class="Button Modal-closeButton Button--plain" type="button" onclick="hideDiv()"><svg viewBox="0 0 14 14" class="Icon Modal-closeIcon Icon--remove" width="16" height="16" aria-hidden="true" style="height: 16px; width: 16px;"><title></title><g><path d="M8.486 7l5.208-5.207c.408-.408.405-1.072-.006-1.483-.413-.413-1.074-.413-1.482-.005L7 5.515 1.793.304C1.385-.103.72-.1.31.31-.103.724-.103 1.385.305 1.793L5.515 7l-5.21 5.207c-.407.408-.404 1.072.007 1.483.413.413 1.074.413 1.482.005L7 8.485l5.207 5.21c.408.407 1.072.404 1.483-.007.413-.413.413-1.074.005-1.482L8.485 7z"></path></g></svg></button></div></div>
+
+
+<!--弹出框结束-->
+
+<script>
+    function hideDiv(){
+      $("#categoryDiv").hide();
+    }
+
+
+
+  function showDiv(){
+      $("#categoryDiv").show();
+    }
+</script>
+
+<script>
+  $(function(){
+    $('.modiv_left').click(function(){
+      $('.modiv_left').removeClass('modiv_active');
+      $(this).addClass('modiv_active');
+    })
+  })
+</script>
+
+
+<script>
+  $(function(){
+    $('#tijiao_shuafen').click(function(){
+      productid = $('#productid').attr('xf');
+      modiv_number = $(this).find('.modiv_number').html();
+      modiv_fenbi = $(this).find('.modiv_fenbi').html();
+      pro = {};
+      pro.productid = productid;
+      pro.modiv_number = modiv_number;
+      pro.modiv_fenbi = modiv_fenbi;
+      pro.content = $('#mycontent').val();
+      params =  JSON.stringify(GetJsonData()),
+      url = "__MODULE__/Interface/submitorder";
+      $.post(url,params,function(data){
+        if(data.error==''){
+          myalert('提交成功','');
+        }else{
+          layer.alert(data.error);
+        }
+      },"json")
+    })
+  })
+
+  function GetJsonData() {
+    var json = {
+        "classid": 2,
+        "name": $("#tb_name").val(),
+        "zlclass": "测试类型1,测试类型2,测试类型3",
+        "pname": $("#tb_contact_people").val(),
+        "tel": $("#tb_contact_phone").val()
+    };
+    return json;
+}
+</script>
+
+
+        
+
+        

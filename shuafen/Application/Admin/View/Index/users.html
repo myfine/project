@@ -1,0 +1,81 @@
+<layout name="Index/index" />
+<link rel="stylesheet" type="text/css" href="__PUBLIC__/Admin/webuploader/0.1.5/webuploader.css" />
+<script type="text/javascript" src="__PUBLIC__/Admin/webuploader/0.1.5/webuploader.min.js"></script>
+<div id="dcMain"> <!-- 当前位置 -->
+<div class="mainBox imgModule">
+<h3>用户列表</h3>
+<table width="100%" border="0" cellpadding="10" cellspacing="0" class="tableBasic">
+<!-- 列表 -->
+	<tr>
+        <th>用户名</th>
+        <th>积分</th>
+		<th width="15%">操作</th>
+    </tr>
+	<volist name="list" id="list">           
+		<tr class="tron">
+			<td>
+				{$list.nickname}
+			</td>
+			<td>
+				{$list.fenbi}
+			</td>
+	        <td align="center"> 
+	        	<!-- <a href="__URL__/edituser/id/{$list.id}">
+					<span class="anniu">编辑 |</span>
+				</a> -->
+	        	<a href="javascript:;" title="删除" class="btn-delete" id="{$list.id}">
+					<span class="anniu">删除</span>
+				</a>
+	        </td>
+        </tr>
+    </volist>
+</table>
+<div class="pager" style="float:right">{$page}</div>
+</div>
+</div>
+ <div class="clear"></div>
+ <div id="footer">
+  <div class="line"></div>
+ <!--  <ul>
+   版权所有 © 2015-2016
+  </ul> -->
+ </div>
+</div><!-- dcFooter 结束 -->
+<div class="clear"></div> </div>
+</body>
+</html>
+<script>
+
+$('.nav ul li').each(function() {
+  $('.nav ul li').css("background","#0072C6");
+  $('.nav ul li a').css("color","#D9D9D9");
+});
+$('#kzmb').css("background","#60BBFF");
+$('#kzmb a').css("color","#FFFFFF");
+
+$('.con li').each(function() {
+  $('.con li').attr("class","");
+});
+$('#yhlb').attr("class","cur");
+</script>
+
+<script>
+	$('.btn-delete').each(function() {
+	  $(this).click(function() {
+	    if(confirm('确定要删除吗？')){
+	      params = {};
+	      params.id = $(this).attr("id");
+	      var url = '__CONTROLLER__/deleteUser';
+	      $.post(url, params, function(d){
+	        if(d.error == ""){
+	          	alert("删除成功");
+	            window.location.reload();
+	        }else{
+	        	alert(d.error);
+	        }
+	      }, 'json');
+	    }
+	  });
+	});
+	
+</script>

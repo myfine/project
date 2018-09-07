@@ -1,0 +1,97 @@
+      <!-- 导航栏-->
+      <include file="Public:header" />
+     <div class="Sticky--holder" style="position: relative; top: auto; right: auto; bottom: auto; left: auto; display: block; float: none; margin: 0px; height: 53px;"></div>
+    <main role="main" class="App-main">
+     <div>
+      <div>
+		<include file="public_header" />
+       <div class="Profile-main">
+        <div class="Profile-mainColumn">
+         <div class="Card ProfileMain" id="ProfileMain">
+         	<ul role="tablist" class="Tabs ProfileMain-tabs">
+			   <li role="tab" class="Tabs-item" aria-controls="Profile-answers"><a class="Tabs-link" href="__URL__/personal">
+			    		我的立言<span class="Tabs-meta"><if condition="$myliyancount">{$myliyancount}</if></span></a></li>
+			  <li role="tab" class="Tabs-item" aria-controls="Profile-asks"><a class="Tabs-link" href="__URL__/comment">
+			    		我的评论<span class="Tabs-meta"><if condition="$mycommentcount">{$mycommentcount}</if></span></a></li>
+			  <li role="tab" class="Tabs-item" aria-controls="Profile-asks"><a class="Tabs-link" href="__URL__/gzliyan/type/1">
+			    		关注的立言<span class="Tabs-meta"><if condition="$gzcount">{$gzcount}</if></span></a></li>
+			  <li role="tab" class="Tabs-item" aria-controls="Profile-asks"><a class="Tabs-link is-active" href="__URL__/friends/type/1">
+			    		我的好友</a></li>
+			  <li role="tab" class="Tabs-item" aria-controls="Profile-asks"><a class="Tabs-link" href="__URL__/ziliao/type/1">
+			    		资料</a></li>
+			  <li role="tab" class="Tabs-item" aria-controls="Profile-asks"><a class="Tabs-link" href="__URL__/tsjy/type/1">
+			    		建议维权</a></li>
+			 </ul>
+          
+          <div style="padding:15px">
+          		<if condition="$Think.get.type eq 1 or $Think.get.type eq ''">
+          			<div class="Tag QuestionTopic" data-za-module="TopicItem" style="color:white;background:#6F85C7"><a href="__URL__/friends/type/1">关注（{$count1}）</a></div>&nbsp&nbsp
+	          		<div class="Tag QuestionTopic" data-za-module="TopicItem"><a href="__URL__/friends/type/2">粉丝（{$count2}）</a></div>&nbsp&nbsp
+	          		<div class="Tag QuestionTopic" data-za-module="TopicItem"><a href="__URL__/friends/type/3">互粉（{$count3}）</a></div>
+	          	<elseif condition="$Think.get.type eq 2" />
+	          		<div class="Tag QuestionTopic" data-za-module="TopicItem"><a href="__URL__/friends/type/1">关注（{$count1}）</a></div>&nbsp&nbsp
+	          		<div class="Tag QuestionTopic" data-za-module="TopicItem" style="color:white;background:#6F85C7"><a href="__URL__/friends/type/2">粉丝（{$count2}）</a></div>&nbsp&nbsp
+	          		<div class="Tag QuestionTopic" data-za-module="TopicItem"><a href="__URL__/friends/type/3">互粉（{$count3}）</a></div>
+          		<else />
+          			<div class="Tag QuestionTopic" data-za-module="TopicItem"><a href="__URL__/friends/type/1">关注（{$count1}）</a></div>&nbsp&nbsp
+	          		<div class="Tag QuestionTopic" data-za-module="TopicItem"><a href="__URL__/friends/type/2">粉丝（{$count2}）</a></div>&nbsp&nbsp
+	          		<div class="Tag QuestionTopic" data-za-module="TopicItem" style="color:white;background:#6F85C7"><a href="__URL__/friends/type/3">互粉（{$count3}）</a></div>
+          		</if>
+	      </div>
+          
+          <div class="List Profile-answers" id="Profile-answers">
+           <div>
+           
+            <include file="Public:friend_item"  />
+            
+            	<div id="container"></div>
+	            <if condition="$tpage" >
+	            	<div id="pagediv" class="Card"><a href="javascipt:void()" id="page" class="QuestionMainAction" p="2">下一页</a></div>
+	            </if>
+	            
+	            <script>
+					$("#page").click(function(){
+						var p = $(this).attr("p");
+						params = {};
+					    params.pageNo = p;
+					    params.type = "{$_GET['type']}";
+					    var url = '__URL__/ajaxFriends';
+					    $.post(url, params, function(d){
+				   			if(d.end){
+				      			$("#pagediv").hide();
+				      		}
+				 	   		$("#container").append(d.content);
+					   	}, 'json');
+						
+						ps = parseInt(p) + 1;
+						$(this).attr("p", ps);
+					});
+				</script>
+           </div>
+          </div>
+         </div>
+        </div>
+        <include file="public_right" />
+       </div>
+      </div>
+     </div>
+    </main>
+  <div>
+  </div>
+  <include file="Public:footer" />
+ </body>
+</html>
+<script>
+	function guanzhu(id){
+	      params = {};
+	      params.followId = id;
+	      var url = '__GROUP__/Viewpoint/follow';
+	      $.post(url, params, function(d){
+	        if(d.error == ""){
+	            window.location.reload();
+	        }else{
+	            alert(d.error);
+	        }
+	      }, 'json');
+	}
+</script>

@@ -1,0 +1,82 @@
+<layout name="Index/index" />
+<link rel="stylesheet" type="text/css" href="__PUBLIC__/Admin/webuploader/0.1.5/webuploader.css" />
+<script type="text/javascript" src="__PUBLIC__/Admin/webuploader/0.1.5/webuploader.min.js"></script>
+<style>
+	.save{
+		width: 80px;height:35px;
+		line-height: 35px;
+		font-size: 15px;
+		background-color: #0072C6;
+		cursor: pointer;
+		color: #FFF;font-weight: bold;
+		letter-spacing: 2px;
+	}
+</style>
+<div id="dcMain"> <!-- 当前位置 -->
+<div class="mainBox imgModule">
+	<h3>接口文档</h3>
+	<form action="" method="post">
+		<table width="100%" border="0" cellpadding="10" cellspacing="0" class="tableBasic">
+			<tr>
+		        <td class="label" align="right" width="10%">内容：</td>
+		        <td>
+		          <textarea id="content" name="content" size="80" class="inpMain">{$res.content}</textarea>
+		        </td>
+		    </tr>
+		    <tr>
+		    	<td class="label" align="right"></td>
+		    	<td>
+		    		<button class="save" onclick="save()">保存</button>
+		    	</td>
+		    </tr>
+		</table>
+	</form>
+</div>
+</div>
+<div class="clear"></div>
+<div id="footer">
+	<div class="line"></div>
+</div>
+<div class="clear"></div> 
+</div>
+<script>	
+UE.getEditor('content', {
+  "initialFrameWidth" : "100%",   // 宽
+  "initialFrameHeight" : 400,      // 高
+  "maximumWords" : 10000            // 最大可以输入的字符数量
+});
+
+</script>
+<script>
+$('.nav ul li').each(function() {
+  $('.nav ul li').css("background","#0072C6");
+  $('.nav ul li a').css("color","#D9D9D9");
+});
+$('#kzmb').css("background","#60BBFF");
+$('#kzmb a').css("color","#FFFFFF");
+
+$('.con li').each(function() {
+  $('.con li').attr("class","");
+});
+$('#wd').attr("class","cur");
+</script>
+<script>
+	function save(){
+		var params={};
+		var js = UE.getEditor('content').getContent() 
+		params.content = js;
+		params.id = 1;
+		url = '__URL__/addword';
+		$.post(url, params, function(d){
+			if(d.error){
+				alert(d.error);
+			}else{
+				alert('保存成功');
+				window.location.reload();
+			}
+			//window.location.reload();
+		},'json');
+	}
+</script>
+</body>
+</html>

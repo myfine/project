@@ -1,0 +1,124 @@
+<layout name="Index/index" />
+<link rel="stylesheet" type="text/css" href="__PUBLIC__/Admin/webuploader/0.1.5/webuploader.css" />
+<script type="text/javascript" src="__PUBLIC__/Admin/webuploader/0.1.5/webuploader.min.js"></script>
+<div id="dcMain"> <!-- 当前位置 -->
+<div class="mainBox imgModule">
+<h3>订单列表</h3>
+<table width="100%" border="0" cellpadding="10" cellspacing="0" class="tableBasic">
+<!-- 列表 -->
+	<tr>
+        <th>商品名称</th>
+        <th>刷粉次数</th>
+        <th>粉币</th>
+        <th>状态</th>
+        <th>作品id</th>
+        <th>下单时间</th>
+		<th width="15%">操作</th>
+    </tr>
+	<volist name="list" id="list">           
+		<tr class="tron">
+			<td align="center">
+				{$list.title}
+			</td>
+			<td align="center">
+				{$list.shuafen_num}
+			</td>
+			<td align="center">
+				{$list.needfenbi}
+			</td>
+			<td align="center">
+				<php>if($list['status'] == 0){</php>
+					进行中
+				<php>}elseif($list['status'] == 1){</php>
+					完成
+				<php>}else{</php>
+					取消
+				<php>}</php>
+			</td>
+			<td align="center">
+				{$list.content}
+			</td>
+			<td align="center">
+				{$list.time|date="Y-m-d H:i:s",###}
+			</td>
+	        <td align="center">
+	        	<a href="javacript:void(0)">
+					<span class="anniu">去下单 | </span>
+				</a> 
+	       		<a href="javacript:void(0)" class="btn-cancel" id="{$list.id}">
+					<span class="anniu">取消 | </span>
+				</a>
+	        	<a href="javascript:;" title="删除" class="btn-delete" id="{$list.id}">
+					<span class="anniu">删除</span>
+				</a>
+	        </td>
+        </tr>
+    </volist>
+</table>
+<div class="pager" style="float:right">{$page}</div>
+</div>
+</div>
+ <div class="clear"></div>
+ <div id="footer">
+  <div class="line"></div>
+ <!--  <ul>
+   版权所有 © 2015-2016
+  </ul> -->
+ </div>
+</div><!-- dcFooter 结束 -->
+<div class="clear"></div> </div>
+</body>
+</html>
+<script>
+
+$('.nav ul li').each(function() {
+  $('.nav ul li').css("background","#0072C6");
+  $('.nav ul li a').css("color","#D9D9D9");
+});
+$('#kzmb').css("background","#60BBFF");
+$('#kzmb a').css("color","#FFFFFF");
+
+$('.con li').each(function() {
+  $('.con li').attr("class","");
+});
+$('#ddlb').attr("class","cur");
+</script>
+
+<script>
+	$('.btn-delete').each(function() {
+	  $(this).click(function() {
+	    if(confirm('确定要删除吗？')){
+	      params = {};
+	      params.id = $(this).attr("id");
+	      var url = '__URL__/deleteOrder';
+	      $.post(url, params, function(d){
+	        if(d.error == ""){
+	          	alert("删除成功");
+	            window.location.reload();
+	        }else{
+	          	alert(d.error);
+	        }
+	      }, 'json');
+	    }
+	  });
+	});
+	
+	$('.btn-cancel').each(function() {
+		  $(this).click(function() {
+		    if(confirm('确定要取消订单吗？')){
+		      params = {};
+		      params.id = $(this).attr("id");
+		      var url = '__URL__/cancelOrder';
+		      $.post(url, params, function(d){
+		        if(d.error == ""){
+		          	alert("取消成功");
+		            window.location.reload();
+		        }else{
+		          	alert(d.error);
+		        }
+		      }, 'json');
+		    }
+		  });
+	});
+	
+</script>
